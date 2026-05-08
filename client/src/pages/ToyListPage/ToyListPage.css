@@ -1,0 +1,7 @@
+.toy-list {
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 25%);
+    padding: 2% 5% 2% 5%;
+}

@@ -1,0 +1,47 @@
+:root {
+  /* brand */
+  --navy-900: #001D3D;
+  --navy-700: #003566;
+
+  /* accents */
+  --coral: #FF6B6B;
+  --teal: #2A9D8F;
+  --mustard: #E9B949;
+
+  /* soft accents */
+  --coral-soft: #FFE3E3;
+  --teal-soft: #E3F4F1;
+  --mustard-soft: #FFF4D6;
+
+  /* backgrounds */
+  --bg-main: #F6F8FA;
+  --bg-section: #EEF3F7;
+
+  /*text*/
+  --text-label: #041E2B;
+  --text-description: #353E43;
+
+  font: 18px/145%;
+  letter-spacing: 0.18px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Belanosima", sans-serif;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}

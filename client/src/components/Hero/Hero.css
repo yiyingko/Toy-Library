@@ -1,0 +1,50 @@
+.hero {
+    display: grid;
+    place-items: center;
+    margin-bottom: 20%;
+}
+
+.hero__title {
+    font-size: 4rem;
+    color: var(--navy-900);
+}
+
+.hero__text {
+    font-size: 1.5rem;
+    font-weight: 200;
+    color: var(--navy-700)
+}
+
+.hero__button {
+    text-align: center;
+    padding: 2%;
+    margin-top: 3%;
+    width: 200px;
+    border-radius: 25px;
+    background-color: var(--coral);
+    color: var(--bg-section);
+    border: none;
+    font-size: 1.3em;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero__button,
+.hero__button:visited,
+.hero__button:hover,
+.hero__button:active {
+    color: var(--bg-section);
+    text-decoration: none;
+}
+
+.hero__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero__button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
