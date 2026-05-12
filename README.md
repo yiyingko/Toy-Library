@@ -218,6 +218,12 @@ This project was built to practice:
 
 ---
 
+## Assets
+
+Some visual assets in this project were AI-generated and edited for project use.
+
+---
+
 ## Author
 
 Yi-Ying Ko
