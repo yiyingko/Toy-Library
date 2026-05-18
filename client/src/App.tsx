@@ -7,6 +7,9 @@ import AboutPage from './pages/AboutPage/AboutPage';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import ContactPage from './pages/ContactPage/ContactPage';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import AddToyPage from './pages/AddToyPage/AddToyPage';
+import BorrowRequestsPage from './pages/BorrowRequestsPage/BorrowRequestsPage';
 
 function App() {
   return (
@@ -19,6 +22,10 @@ function App() {
         <Route path="/toys/:toyId" element={<ToyDetailPage />} />
         <Route path="/borrow/:toyId" element={<BorrowPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        /**Admin Routes */
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/toys/new" element={<AddToyPage />} />
+        <Route path="/admin/requests" element={<BorrowRequestsPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
