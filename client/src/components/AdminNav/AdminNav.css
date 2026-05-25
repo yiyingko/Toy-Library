@@ -1,30 +1,30 @@
-.navbar {
+.Admin-navbar {
     width: 50%;
 }
 
-.navbar a.active {
+.Admin-navbar a.active {
     color: var(--teal);
     font-weight: bold;
 }
 
-.navbar ul {
+.Admin-navbar ul {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
     list-style-type: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
 
-.navbar ul li a {
+.Admin-navbar ul li a {
     text-decoration: none;
     color: var(--bg-section);
 
 }
 
-.navbar li {
-    width: 16%;
+.Admin-navbar li {
+    width: 18%;
     padding: 1%;
     margin: 2%;
     border-radius: 18px;
@@ -34,13 +34,13 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.navbar li:hover {
+.Admin-navbar li:hover {
     opacity: 0.7;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.navbar li:active {
+.Admin-navbar li:active {
     transform: translateY(1px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }

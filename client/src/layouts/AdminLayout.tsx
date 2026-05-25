@@ -10,7 +10,7 @@ function AdminLayout() {
       <main className="admin-layout__content">
         <Outlet />
       </main>
-      <Footer />
+      <Footer variant="admin" />
     </div>
   );
 }

@@ -3,19 +3,19 @@ import './AdminNav.css';
 
 function AdminNav() {
   return (
-    <nav className="navbar">
+    <nav className="Admin-navbar">
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink to="/toys">Collection</NavLink>
+          <NavLink to="/admin">Dashboard</NavLink>
         </li>
         <li>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink to="/admin/toys/new">Add Toy</NavLink>
         </li>
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/admin/requests">Borrow Requests</NavLink>
         </li>
       </ul>
     </nav>

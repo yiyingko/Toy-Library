@@ -13,7 +13,7 @@
 - Image upload with cloud storage
 - Borrow request management
 
-1. Create /admin route
+1. Create /admin route x
 2. Build AdminDashboard layout
 3. Build AddToyForm page
 4. Build BorrowRequestsManagement page
