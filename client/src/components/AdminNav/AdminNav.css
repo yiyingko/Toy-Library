@@ -1,0 +1,46 @@
+.navbar {
+    width: 50%;
+}
+
+.navbar a.active {
+    color: var(--teal);
+    font-weight: bold;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    list-style-type: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+
+.navbar ul li a {
+    text-decoration: none;
+    color: var(--bg-section);
+
+}
+
+.navbar li {
+    width: 16%;
+    padding: 1%;
+    margin: 2%;
+    border-radius: 18px;
+    text-align: center;
+    background-color: var(--navy-700);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar li:hover {
+    opacity: 0.7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar li:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
