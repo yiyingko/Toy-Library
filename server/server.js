@@ -6,6 +6,7 @@ const db = require('./db');
 const toyRoutes = require('./routes/toyRoutes');
 const borrowRequestRoutes = require('./routes/borrowRoutes');
 const contactMessageRoutes = require('./routes/contactRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 app.use('/toys', toyRoutes);
 app.use('/borrow-requests', borrowRequestRoutes);
 app.use('/contact', contactMessageRoutes);
+app.use('/admin', adminRoutes);
 
 const PORT = process.env.PORT || 3000;
 

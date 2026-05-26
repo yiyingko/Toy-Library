@@ -17,6 +17,9 @@ function AdminNav() {
         <li>
           <NavLink to="/admin/requests">Borrow Requests</NavLink>
         </li>
+        <li>
+          <NavLink to="/admin/messages">Messages</NavLink>
+        </li>
       </ul>
     </nav>
   );

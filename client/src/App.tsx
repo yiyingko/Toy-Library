@@ -10,6 +10,7 @@ import AddToyPage from './pages/AddToyPage/AddToyPage';
 import BorrowRequestsPage from './pages/BorrowRequestsPage/BorrowRequestsPage';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
+import ContactMessagesPage from './pages/ContactMessagesPage/ContactMessagesPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/toys/new" element={<AddToyPage />} />
           <Route path="/admin/requests" element={<BorrowRequestsPage />} />
+          <Route path="/admin/messages" element={<ContactMessagesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
