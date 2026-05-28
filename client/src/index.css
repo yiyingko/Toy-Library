@@ -21,6 +21,7 @@
   /*text*/
   --text-label: #041E2B;
   --text-description: #353E43;
+  --text: #FFFDD0;
 
   font: 18px/145%;
   letter-spacing: 0.18px;
