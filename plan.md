@@ -14,7 +14,7 @@
 - Borrow request management
 
 1. Create /admin route x
-2. Build AdminDashboard layout
+2. Build AdminDashboard layout x
 3. Build AddToyForm page
 4. Build BorrowRequestsManagement page
 5. Connect them to real backend endpoints

@@ -94,3 +94,14 @@
 .admin-dashboard__badge {
     font-size: 2.5rem;
 }
+
+.admin-dashboard__card:hover {
+    opacity: 0.7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-dashboard__card:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
