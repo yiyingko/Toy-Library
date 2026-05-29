@@ -5,4 +5,6 @@ export type BorrowRequest = {
   borrower_email: string;
   message?: string;
   borrow_status: string;
+  created_at: string;
+  toy_name: string;
 };

@@ -21,3 +21,15 @@ export async function createBorrowRequest(formData: {
 
   return response.json();
 }
+
+export async function getAllBorrowRequests() {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/borrow-requests`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch borrow requests');
+  }
+
+  return response.json();
+}
