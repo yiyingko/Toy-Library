@@ -30,8 +30,8 @@ async function startServer() {
     console.log('Connected to MySQL');
     connection.release();
 
-    const [rows] = await db.query('SELECT * FROM toys');
-    console.log('Rows on startup:', rows);
+    // const [rows] = await db.query('SELECT * FROM toys');
+    // console.log('Rows on startup:', rows);
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
