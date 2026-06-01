@@ -56,4 +56,53 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status, toy_id } = req.body;
+
+  try {
+    await db.query(
+      `
+      UPDATE borrow_requests
+      SET borrow_status = ?
+      WHERE id = ?
+      `,
+      [status, id],
+    );
+
+    if (status === 'approved') {
+      await db.query(
+        `
+        UPDATE toys
+        SET is_available = 0,
+            status = 'unavailable'
+        WHERE id = ?
+        `,
+        [toy_id],
+      );
+    }
+
+    if (status === 'completed') {
+      await db.query(
+        `
+        UPDATE toys
+        SET is_available = 1,
+            status = 'available'
+        WHERE id = ?
+        `,
+        [toy_id],
+      );
+    }
+
+    res.json({
+      message: 'Borrow request updated successfully',
+    });
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
 module.exports = router;

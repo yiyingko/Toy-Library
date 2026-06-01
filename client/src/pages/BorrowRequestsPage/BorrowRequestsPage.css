@@ -1,0 +1,17 @@
+.borrow-requests-page {
+    min-height: 100vh;
+    background-color: var(--teal-soft);
+
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+
+.borrow-requests__cell,
+.borrow-requests__header-cell {
+    padding: 1.2rem;
+    vertical-align: middle;
+    min-height: 4rem;
+
+}

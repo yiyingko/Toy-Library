@@ -23,38 +23,61 @@ function BorrowRequestsPage() {
   }
 
   return (
-    <main>
-      <table className="borrow-requests__table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Toy_id</th>
-            <th>Toy</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {borrowRequests.map((request) => (
-            <tr key={request.id}>
-              <td>{request.borrower_name}</td>
-              <td>{request.borrower_email}</td>
-              <td>{request.toy_id}</td>
-              <td>{request.toy_name}</td>
-              <td>{request.borrow_status}</td>
-              <td>{request.created_at}</td>
-              <td>
-                <button>Approve</button>
-                <button>Reject</button>
-              </td>
+    <div className="borrow-requests-page">
+      <main className="borrow-requests">
+        <table className="borrow-requests__table">
+          <thead className="borrow-requests__table-head">
+            <tr className="borrow-requests__header-row">
+              <th className="borrow-requests__header-cell">Name</th>
+              <th className="borrow-requests__header-cell">Email</th>
+              <th className="borrow-requests__header-cell">Toy ID</th>
+              <th className="borrow-requests__header-cell">Toy</th>
+              <th className="borrow-requests__header-cell">Status</th>
+              <th className="borrow-requests__header-cell">Date</th>
+              <th className="borrow-requests__header-cell">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </main>
+          </thead>
+
+          <tbody className="borrow-requests__table-body">
+            {borrowRequests.map((request) => (
+              <tr key={request.id} className="borrow-requests__row">
+                <td className="borrow-requests__cell">
+                  {request.borrower_name}
+                </td>
+
+                <td className="borrow-requests__cell">
+                  {request.borrower_email}
+                </td>
+
+                <td className="borrow-requests__cell">{request.toy_id}</td>
+
+                <td className="borrow-requests__cell">{request.toy_name}</td>
+
+                <td className="borrow-requests__cell">
+                  <span className="borrow-requests__status">
+                    {request.borrow_status}
+                  </span>
+                </td>
+
+                <td className="borrow-requests__cell">{request.created_at}</td>
+
+                <td className="borrow-requests__cell">
+                  <div className="borrow-requests__actions">
+                    <button className="borrow-requests__button borrow-requests__button--approve">
+                      Approve
+                    </button>
+
+                    <button className="borrow-requests__button borrow-requests__button--reject">
+                      Reject
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
+    </div>
   );
 }
 
