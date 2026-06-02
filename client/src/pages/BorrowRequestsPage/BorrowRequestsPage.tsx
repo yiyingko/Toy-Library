@@ -1,26 +1,43 @@
 import './BorrowRequestsPage.css';
 import { useState, useEffect } from 'react';
-import type { BorrowRequest } from '../../types/borrow';
-import { getAllBorrowRequests } from '../../services/borrowService';
+import type { BorrowRequest, UpdateBorrowStatusData } from '../../types/borrow';
+import {
+  getAllBorrowRequests,
+  updateBorrowStatus,
+} from '../../services/borrowService';
 
 function BorrowRequestsPage() {
   const [borrowRequests, setBorrowRequests] = useState<BorrowRequest[]>([]);
   const [requestsLoaded, setRequestsLoaded] = useState(false);
 
+  const fetchBorrowRequests = async () => {
+    try {
+      const response = await getAllBorrowRequests();
+      setBorrowRequests(response);
+      setRequestsLoaded(true);
+    } catch (error) {
+      console.error('Failed to fetch borrow requests:', error);
+    }
+  };
+
   useEffect(() => {
-    getAllBorrowRequests()
-      .then((response) => {
-        setBorrowRequests(response);
-        setRequestsLoaded(true);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch toys:', error);
-      });
+    void fetchBorrowRequests();
   }, []);
 
   if (!requestsLoaded) {
     return <p>Loading requests...</p>;
   }
+
+  const approveBorrowStatus = async (data: UpdateBorrowStatusData) => {
+    try {
+      await updateBorrowStatus(data);
+      await fetchBorrowRequests();
+
+      console.log('approve submitted!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="borrow-requests-page">
@@ -63,13 +80,39 @@ function BorrowRequestsPage() {
 
                 <td className="borrow-requests__cell">
                   <div className="borrow-requests__actions">
-                    <button className="borrow-requests__button borrow-requests__button--approve">
-                      Approve
-                    </button>
+                    {request.borrow_status === 'pending' && (
+                      <>
+                        <button
+                          onClick={() =>
+                            approveBorrowStatus({
+                              id: request.id,
+                              toy_id: request.toy_id,
+                              status: 'approved',
+                            })
+                          }
+                        >
+                          Approve
+                        </button>
+                        <button>Reject</button>
+                      </>
+                    )}
+                    {request.borrow_status === 'rejected' && (
+                      <button
+                        onClick={() =>
+                          approveBorrowStatus({
+                            id: request.id,
+                            toy_id: request.toy_id,
+                            status: 'approved',
+                          })
+                        }
+                      >
+                        Approve
+                      </button>
+                    )}
 
-                    <button className="borrow-requests__button borrow-requests__button--reject">
-                      Reject
-                    </button>
+                    {request.borrow_status === 'approved' && (
+                      <button>Return Toy</button>
+                    )}
                   </div>
                 </td>
               </tr>
