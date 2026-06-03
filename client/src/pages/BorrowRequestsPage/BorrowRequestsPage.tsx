@@ -52,6 +52,7 @@ function BorrowRequestsPage() {
               <th className="borrow-requests__header-cell">Status</th>
               <th className="borrow-requests__header-cell">Date</th>
               <th className="borrow-requests__header-cell">Action</th>
+              <th className="borrow-requests__header-cell">Delete</th>
             </tr>
           </thead>
 
@@ -83,6 +84,7 @@ function BorrowRequestsPage() {
                     {request.borrow_status === 'pending' && (
                       <>
                         <button
+                          className="borrow-requests__button borrow-requests__button--approve"
                           onClick={() =>
                             approveBorrowStatus({
                               id: request.id,
@@ -93,11 +95,23 @@ function BorrowRequestsPage() {
                         >
                           Approve
                         </button>
-                        <button>Reject</button>
+                        <button
+                          className="borrow-requests__button borrow-requests__button--reject"
+                          onClick={() =>
+                            approveBorrowStatus({
+                              id: request.id,
+                              toy_id: request.toy_id,
+                              status: 'rejected',
+                            })
+                          }
+                        >
+                          Reject
+                        </button>
                       </>
                     )}
                     {request.borrow_status === 'rejected' && (
                       <button
+                        className="borrow-requests__button borrow-requests__button--approve"
                         onClick={() =>
                           approveBorrowStatus({
                             id: request.id,
@@ -111,8 +125,26 @@ function BorrowRequestsPage() {
                     )}
 
                     {request.borrow_status === 'approved' && (
-                      <button>Return Toy</button>
+                      <button
+                        className="borrow-requests__button borrow-requests__button--return"
+                        onClick={() =>
+                          approveBorrowStatus({
+                            id: request.id,
+                            toy_id: request.toy_id,
+                            status: 'completed',
+                          })
+                        }
+                      >
+                        Return Toy
+                      </button>
                     )}
+                  </div>
+                </td>
+                <td className="borrow-requests__cell">
+                  <div className="borrow-requests__delete">
+                    <button className="borrow-requests__button borrow-requests__button--delete">
+                      Delete
+                    </button>
                   </div>
                 </td>
               </tr>
