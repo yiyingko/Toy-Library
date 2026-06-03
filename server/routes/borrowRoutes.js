@@ -105,4 +105,35 @@ router.patch('/:id', async (req, res) => {
     });
   }
 });
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await db.query(
+      `
+      DELETE FROM borrow_requests
+      WHERE id = ?
+      `,
+      [id],
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: 'Borrow request not found',
+      });
+    }
+
+    res.json({
+      message: 'Borrow request deleted successfully',
+    });
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;
