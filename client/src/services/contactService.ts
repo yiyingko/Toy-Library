@@ -29,6 +29,16 @@ export async function getAllContactMessages() {
   return response.json();
 }
 
+export async function getMessageById(id: number) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/contacts/${id}`,
+  );
+  if (!response.ok) {
+    throw new Error('Failed to fetch message');
+  }
+  return response.json();
+}
+
 export async function deleteContactMessage(id: number) {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/contacts/${id}`,

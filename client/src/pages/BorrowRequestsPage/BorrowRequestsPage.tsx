@@ -6,6 +6,7 @@ import {
   updateBorrowStatus,
   deleteBorrowRequest,
 } from '../../services/borrowService';
+import { formatDate } from '../../utils/formatDate';
 
 function BorrowRequestsPage() {
   const [borrowRequests, setBorrowRequests] = useState<BorrowRequest[]>([]);
@@ -87,7 +88,9 @@ function BorrowRequestsPage() {
                   </span>
                 </td>
 
-                <td className="borrow-requests__cell">{request.created_at}</td>
+                <td className="borrow-requests__cell">
+                  {formatDate(request.created_at)}
+                </td>
 
                 <td className="borrow-requests__cell">
                   <div className="borrow-requests__actions">

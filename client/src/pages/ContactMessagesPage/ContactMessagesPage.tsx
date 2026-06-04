@@ -5,6 +5,8 @@ import {
   deleteContactMessage,
 } from '../../services/contactService';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { formatDate } from '../../utils/formatDate';
 
 function ContactMessagesPage() {
   const [contactMessages, setContactMessages] = useState<Contact[]>([]);
@@ -67,13 +69,18 @@ function ContactMessagesPage() {
                   </span>
                 </td>
 
-                <td className="contact-messages__cell">{request.created_at}</td>
+                <td className="contact-messages__cell">
+                  {formatDate(request.created_at)}
+                </td>
 
                 <td className="contact-messages__cell">
                   <div className="contact-messages__actions">
-                    <button className="contact-messages__button contact-messages__button--approv">
+                    <Link
+                      to={`/admin/messages/${request.id}`}
+                      className="contact-messages__button contact-messages__button--check-message"
+                    >
                       Check Message
-                    </button>
+                    </Link>
                   </div>
                 </td>
                 <td className="contact-messages__cell">
