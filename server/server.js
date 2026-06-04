@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 app.use('/toys', toyRoutes);
 app.use('/borrow-requests', borrowRequestRoutes);
-app.use('/contact', contactMessageRoutes);
+app.use('/contacts', contactMessageRoutes);
 app.use('/admin', adminRoutes);
 
 const PORT = process.env.PORT || 3000;

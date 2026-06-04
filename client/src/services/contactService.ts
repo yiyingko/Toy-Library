@@ -4,7 +4,7 @@ export async function createContactMessage(formData: {
   message: string;
   subject: string;
 }) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,6 +14,31 @@ export async function createContactMessage(formData: {
 
   if (!response.ok) {
     throw new Error('Failed to submit contact message');
+  }
+
+  return response.json();
+}
+
+export async function getAllContactMessages() {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch borrow requests');
+  }
+
+  return response.json();
+}
+
+export async function deleteContactMessage(id: number) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/contacts/${id}`,
+    {
+      method: 'DELETE',
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to delete message');
   }
 
   return response.json();

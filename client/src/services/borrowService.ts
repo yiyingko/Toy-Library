@@ -60,3 +60,18 @@ export async function updateBorrowStatus({
 
   return response.json();
 }
+
+export async function deleteBorrowRequest(id: number) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/borrow-requests/${id}`,
+    {
+      method: 'DELETE',
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to delete borrow request');
+  }
+
+  return response.json();
+}

@@ -4,6 +4,7 @@ import type { BorrowRequest, UpdateBorrowStatusData } from '../../types/borrow';
 import {
   getAllBorrowRequests,
   updateBorrowStatus,
+  deleteBorrowRequest,
 } from '../../services/borrowService';
 
 function BorrowRequestsPage() {
@@ -34,6 +35,15 @@ function BorrowRequestsPage() {
       await fetchBorrowRequests();
 
       console.log('approve submitted!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteRequest = async (id: number) => {
+    try {
+      await deleteBorrowRequest(id);
+      await fetchBorrowRequests();
     } catch (error) {
       console.error(error);
     }
@@ -142,7 +152,10 @@ function BorrowRequestsPage() {
                 </td>
                 <td className="borrow-requests__cell">
                   <div className="borrow-requests__delete">
-                    <button className="borrow-requests__button borrow-requests__button--delete">
+                    <button
+                      className="borrow-requests__button borrow-requests__button--delete"
+                      onClick={() => handleDeleteRequest(request.id)}
+                    >
                       Delete
                     </button>
                   </div>
