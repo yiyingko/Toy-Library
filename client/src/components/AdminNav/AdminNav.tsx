@@ -12,7 +12,7 @@ function AdminNav() {
           <NavLink to="/admin">Dashboard</NavLink>
         </li>
         <li>
-          <NavLink to="/admin/toys/new">Add Toy</NavLink>
+          <NavLink to="/admin/toys">Toy Management</NavLink>
         </li>
         <li>
           <NavLink to="/admin/requests">Borrow Requests</NavLink>

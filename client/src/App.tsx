@@ -12,6 +12,8 @@ import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
 import ContactMessagesPage from './pages/ContactMessagesPage/ContactMessagesPage';
 import ContactDetailPage from './pages/ContactDetailPage/ContactDetailPage';
+import ToyManagementPage from './pages/ToyManagementPage/ToyManagementPage';
+import EditToyPage from './pages/EditToyPage/EditToyPage';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         {/* Admin site */}
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/toys" element={<ToyManagementPage />} />
+          <Route path="/admin/toys/:id/edit" element={<EditToyPage />} />
           <Route path="/admin/toys/new" element={<AddToyPage />} />
           <Route path="/admin/requests" element={<BorrowRequestsPage />} />
           <Route path="/admin/messages" element={<ContactMessagesPage />} />

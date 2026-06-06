@@ -58,8 +58,8 @@ function AdminDashboard() {
         </section>
 
         <section className="admin-dashboard__actions">
-          <Link to="/admin/toys/new" className="admin-dashboard__card">
-            <h3 className="admin-dashboard__card-title">Add Toy</h3>
+          <Link to="/admin/toys" className="admin-dashboard__card">
+            <h3 className="admin-dashboard__card-title">Manage Toy</h3>
           </Link>
 
           <Link to="/admin/messages" className="admin-dashboard__card">
