@@ -33,4 +33,35 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// DELETE  /toys/:id
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await db.query(
+      `
+      DELETE FROM toys
+      WHERE id = ?
+      `,
+      [id],
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: 'Toy not found',
+      });
+    }
+
+    res.json({
+      message: 'Toy deleted successfully',
+    });
+  } catch (error) {
+    console.error(error.message);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;

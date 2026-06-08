@@ -13,3 +13,15 @@ export async function getToyById(id: number) {
   }
   return response.json();
 }
+
+export async function deleteToy(id: number) {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/toys/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete toy');
+  }
+
+  return response.json();
+}
