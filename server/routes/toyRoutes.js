@@ -64,4 +64,64 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const {
+    name,
+    description,
+    age_group,
+    tags,
+    image_path,
+    is_available,
+    status,
+  } = req.body;
+
+  if (
+    !name ||
+    !description ||
+    !age_group ||
+    !tags ||
+    !image_path ||
+    is_available === undefined ||
+    !status
+  ) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
+
+  try {
+    await db.query(
+      `
+      UPDATE toys
+      SET 
+        name = ?,
+        description = ?,
+        age_group = ?,
+        tags = ?,
+        image_path = ?,
+        is_available = ?,
+        status = ?
+      WHERE id = ?
+      `,
+      [
+        name,
+        description,
+        age_group,
+        tags,
+        image_path,
+        is_available,
+        status,
+        id,
+      ],
+    );
+
+    res.json({
+      message: 'Toy info updated successfully',
+    });
+  } catch (error) {
+    console.error('Error updating toy:', error.message);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
+
 module.exports = router;
