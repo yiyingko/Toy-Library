@@ -3,10 +3,13 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
+
+
 const toyRoutes = require('./routes/toyRoutes');
 const borrowRequestRoutes = require('./routes/borrowRoutes');
 const contactMessageRoutes = require('./routes/contactRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -21,6 +24,7 @@ app.use('/toys', toyRoutes);
 app.use('/borrow-requests', borrowRequestRoutes);
 app.use('/contacts', contactMessageRoutes);
 app.use('/admin', adminRoutes);
+app.use('/uploads', uploadRoutes);
 
 const PORT = process.env.PORT || 3000;
 
