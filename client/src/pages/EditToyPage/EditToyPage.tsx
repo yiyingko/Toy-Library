@@ -6,11 +6,13 @@ import { getToyById, updateToyInformation } from '../../services/toyService';
 import type { ToyFormData, Toy } from '../../types/toy';
 import { useForm } from 'react-hook-form';
 import { formatDate } from '../../utils/formatDate';
+import { uploadImage } from '../../services/uploadService';
 
 function EditToyPage() {
   const { id } = useParams<{ id: string }>();
   const [toy, setToy] = useState<Toy | null>(null);
   const [success, setSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const {
     register,
@@ -53,21 +55,28 @@ function EditToyPage() {
   }, [id, reset]);
 
   const onSubmit = async (data: ToyFormData) => {
-    if (!id) return;
+    if (!id || !toy) return;
+
     try {
+      let imageUrl = toy.image_path;
+
+      if (selectedFile) {
+        imageUrl = await uploadImage(selectedFile);
+      }
+
+      console.log('final imageUrl:', imageUrl);
+
       await updateToyInformation({
         id: Number(id),
         name: data.name,
         description: data.description,
         age_group: data.age_group,
         tags: data.tags,
-        image_path: data.image_path,
+        image_path: imageUrl,
         is_available: data.is_available,
         status: data.status,
       });
       setSuccess(true);
-      console.log('toy updated information submitted!');
-      reset();
     } catch (error) {
       console.error(error);
     }
@@ -156,11 +165,15 @@ function EditToyPage() {
             <label htmlFor="image_path">Image path:</label>
             <div className="edit-toy-form__control edit-toy-form__message">
               {imagePath && <img src={imagePath} alt="Toy preview" />}
+
               <input
-                id="image_path"
-                {...register('image_path', {
-                  required: 'image_path is required',
-                })}
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setSelectedFile(file);
+                }}
               />
             </div>
             {errors.image_path && (

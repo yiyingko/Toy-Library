@@ -65,6 +65,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.patch('/:id', async (req, res) => {
+  console.log(req.body);
   const { id } = req.params;
 
   const {
