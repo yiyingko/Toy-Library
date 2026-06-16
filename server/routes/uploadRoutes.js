@@ -1,9 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
+
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({
+  dest: 'uploads/',
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+});
+
 const fs = require('fs/promises');
 
 cloudinary.config({
@@ -18,13 +25,21 @@ router.post('/', upload.single('image'), async (req, res) => {
     console.log('req.file:', req.file);
 
     const result = await cloudinary.uploader.upload(req.file.path);
+
+    const optimizedUrl = cloudinary.url(result.public_id, {
+      width: 800,
+      crop: 'limit',
+      quality: 'auto',
+      fetch_format: 'auto',
+    });
+
     await fs.unlink(req.file.path);
 
     console.log('Cloudinary result:', result.secure_url);
 
     res.json({
       message: 'Upload successful',
-      imageUrl: result.secure_url,
+      imageUrl: optimizedUrl,
       publicId: result.public_id,
     });
   } catch (error) {

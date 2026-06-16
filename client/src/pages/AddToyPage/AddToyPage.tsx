@@ -9,6 +9,7 @@ import { createNewToy } from '../../services/toyService';
 function AddToyPage() {
   const [success, setSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState('');
 
   const {
     register,
@@ -25,7 +26,27 @@ function AddToyPage() {
     },
   });
 
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] || null;
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Image must be smaller than 5MB');
+      e.target.value = '';
+      setSelectedFile(null);
+      return;
+    }
+
+    setUploadError('');
+    setSelectedFile(file);
+  }
+
   const onSubmit = async (data: Toy) => {
+    if (!selectedFile) {
+      setUploadError('Please select an image.');
+      return;
+    }
     try {
       let imageUrl = '';
 
@@ -45,6 +66,8 @@ function AddToyPage() {
       setSuccess(true);
       console.log('new toy created!');
       reset();
+      setSelectedFile(null);
+      setUploadError('');
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +91,6 @@ function AddToyPage() {
                   required: 'Name is required',
                 })}
                 required
-                name="name"
               />
             </div>
             {errors.name && (
@@ -128,21 +150,16 @@ function AddToyPage() {
           </div>
 
           <div className="add-toy-form__field">
-            <label htmlFor="image_path">Add Image:</label>
+            <label htmlFor="image">Add Image:</label>
             <div className="add-toy-form__control add-toy-form__message">
               <input
                 id="image"
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  setSelectedFile(file);
-                }}
+                onChange={handleImageChange}
               />
             </div>
-            {errors.image_path && (
-              <span className="error-message">{errors.image_path.message}</span>
-            )}
+            {uploadError && <p>{uploadError}</p>}
           </div>
           <button type="submit" className="add-toy-form__button">
             Submit
@@ -151,7 +168,7 @@ function AddToyPage() {
       ) : (
         <div className="add-toy-success">
           <p className="add-toy-success__message">
-            New toy added sucessfully !
+            New toy added successfully!
           </p>
 
           <Link to="/admin/toys" className="add-toy-success__btn">
