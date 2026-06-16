@@ -125,4 +125,36 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  const { name, description, age_group, tags, image_path } = req.body;
+
+  if (!name) {
+    return res.status(400).json({
+      error: 'Toy name is required.',
+    });
+  }
+
+  try {
+    const [result] = await db.query(
+      `INSERT INTO toys (name, description, age_group, tags, image_path)
+   VALUES (?, ?, ?, ?, ?)`,
+      [name, description, age_group, tags, image_path],
+    );
+
+    res.status(201).json({
+      message: 'New toy added successfully.',
+      toyId: result.insertId,
+    });
+    // await db.query(
+    //   `INSERT INTO toys (name, description, age_group, tags, image_path)
+    //    VALUES (?, ?, ?, ?, ?)`,
+    //   [name, description, age_group, tags, image_path],
+    // );
+    // res.status(201).json({ message: 'New toy added successfully.' });
+  } catch (error) {
+    console.error('Error saving contact message:', error.message);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
+});
+
 module.exports = router;
