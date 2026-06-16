@@ -223,7 +223,7 @@ function EditToyPage() {
       ) : (
         <div className="edit-toy-success">
           <p className="edit-toy-success__message">
-            New toy added sucessfully !
+            Information updated sucessfully !
           </p>
 
           <Link to="/admin/toys" className="edit-toy-success__btn">

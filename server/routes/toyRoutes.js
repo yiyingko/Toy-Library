@@ -145,12 +145,6 @@ router.post('/', async (req, res) => {
       message: 'New toy added successfully.',
       toyId: result.insertId,
     });
-    // await db.query(
-    //   `INSERT INTO toys (name, description, age_group, tags, image_path)
-    //    VALUES (?, ?, ?, ?, ?)`,
-    //   [name, description, age_group, tags, image_path],
-    // );
-    // res.status(201).json({ message: 'New toy added successfully.' });
   } catch (error) {
     console.error('Error saving contact message:', error.message);
     res.status(500).json({ error: 'Something went wrong.' });

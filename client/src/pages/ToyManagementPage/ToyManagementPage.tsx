@@ -39,13 +39,18 @@ function ToyManagementPage() {
   return (
     <div className="toy-management-page">
       <main className="toy-management">
+        <div>
+          <h1>Show All Toys</h1>
+          <div className="toy-management__actions">
+            <Link to="/admin/toys/new">Add New Toy</Link>
+          </div>
+        </div>
         <table className="toy-management__table">
           <thead className="toy-management__table-head">
             <tr className="toy-management__header-row">
               <th className="toy-management__header-cell">Toy ID</th>
               <th className="toy-management__header-cell">Name</th>
               <th className="toy-management__header-cell">Age Group</th>
-              <th className="toy-management__header-cell">Image Path</th>
               <th className="toy-management__header-cell">Created at</th>
               <th className="toy-management__header-cell">Available</th>
               <th className="toy-management__header-cell">Status</th>
@@ -60,7 +65,6 @@ function ToyManagementPage() {
                 <td className="toy-management__cell">{request.id}</td>
                 <td className="toy-management__cell">{request.name}</td>
                 <td className="toy-management__cell">{request.age_group}</td>
-                <td className="toy-management__cell">{request.image_path}</td>
                 <td className="toy-management__cell">
                   {formatDate(request.created_at)}
                 </td>

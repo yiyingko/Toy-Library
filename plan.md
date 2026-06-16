@@ -17,7 +17,7 @@
 2. Build AdminDashboard layout x
 3. Build AddToyForm page
 4. Build BorrowRequestsManagement page x
-5. Connect them to real backend endpoints
+5. Connect them to real backend endpoints x
 6. Then protect /admin with Auth0
 
 ### v2.1 — Discovery & communication

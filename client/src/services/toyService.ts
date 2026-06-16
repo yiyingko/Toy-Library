@@ -67,3 +67,25 @@ export async function updateToyInformation({
 
   return response.json();
 }
+
+export async function createNewToy(formData: {
+  name: string;
+  description: string;
+  age_group: string;
+  tags: string;
+  image_path: string;
+}) {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/toys`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to submit new toy');
+  }
+
+  return response.json();
+}
