@@ -15,3 +15,70 @@
     min-height: 4rem;
 
 }
+
+.borrow-requests-page {
+    min-height: 100vh;
+    background-color: var(--teal-soft);
+
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+
+.borrow-requests__cell,
+.borrow-requests__header-cell {
+    padding: 1.2rem;
+    vertical-align: middle;
+    min-height: 4rem;
+
+}
+
+.borrow-requests__button--approve:hover,
+.borrow-requests__button--reject:hover,
+.borrow-requests__button--delete:hover,
+.borrow-requests__button--return:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.borrow-requests__button--approve:active,
+.borrow-requests__button--reject:active,
+.borrow-requests__button--delete:active,
+.borrow-requests__button--return:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.borrow-requests__button--delete {
+    padding: 9%;
+    background-color: var(--mustard);
+    border-radius: 5px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    color: var(--bg-section);
+}
+
+.borrow-requests__header-row {
+    background-color: var(--soft-blue);
+
+}
+
+.borrow-requests__actions {
+    display: flex;
+}
+
+.borrow-requests__button--approve,
+.borrow-requests__button--reject,
+.borrow-requests__button--return {
+    margin: 10px;
+    padding: 4%;
+    background-color: var(--teal);
+    border-radius: 5px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    color: var(--bg-section);
+}

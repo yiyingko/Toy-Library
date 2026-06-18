@@ -62,6 +62,7 @@ function BorrowRequestsPage() {
               <th className="borrow-requests__header-cell">Toy</th>
               <th className="borrow-requests__header-cell">Status</th>
               <th className="borrow-requests__header-cell">Date</th>
+              <th className="borrow-requests__header-cell">Message</th>
               <th className="borrow-requests__header-cell">Action</th>
               <th className="borrow-requests__header-cell">Delete</th>
             </tr>
@@ -91,7 +92,7 @@ function BorrowRequestsPage() {
                 <td className="borrow-requests__cell">
                   {formatDate(request.created_at)}
                 </td>
-
+                <td className="borrow-requests__cell">{request.message}</td>
                 <td className="borrow-requests__cell">
                   <div className="borrow-requests__actions">
                     {request.borrow_status === 'pending' && (
@@ -148,7 +149,7 @@ function BorrowRequestsPage() {
                           })
                         }
                       >
-                        Return Toy
+                        Returned
                       </button>
                     )}
                   </div>

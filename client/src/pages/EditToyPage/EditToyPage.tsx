@@ -13,6 +13,7 @@ function EditToyPage() {
   const [toy, setToy] = useState<Toy | null>(null);
   const [success, setSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState('');
 
   const {
     register,
@@ -53,6 +54,22 @@ function EditToyPage() {
 
     loadToy();
   }, [id, reset]);
+
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] || null;
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Image must be smaller than 5MB');
+      e.target.value = '';
+      setSelectedFile(null);
+      return;
+    }
+
+    setUploadError('');
+    setSelectedFile(file);
+  }
 
   const onSubmit = async (data: ToyFormData) => {
     if (!id || !toy) return;
@@ -162,23 +179,18 @@ function EditToyPage() {
           </div>
 
           <div className="edit-toy-form__field">
-            <label htmlFor="image_path">Image path:</label>
-            <div className="edit-toy-form__control edit-toy-form__message">
+            <label htmlFor="image">Image:</label>
+            <div className="edit-toy-form__control edit-toy-form__image">
               {imagePath && <img src={imagePath} alt="Toy preview" />}
 
               <input
                 id="image"
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  setSelectedFile(file);
-                }}
+                onChange={handleImageChange}
               />
             </div>
-            {errors.image_path && (
-              <span className="error-message">{errors.image_path.message}</span>
-            )}
+            {uploadError && <p>{uploadError}</p>}
           </div>
 
           <div className="edit-toy-form__field">

@@ -79,7 +79,7 @@ function ContactMessagesPage() {
                       to={`/admin/messages/${request.id}`}
                       className="contact-messages__button contact-messages__button--check-message"
                     >
-                      Check Message
+                      Read
                     </Link>
                   </div>
                 </td>

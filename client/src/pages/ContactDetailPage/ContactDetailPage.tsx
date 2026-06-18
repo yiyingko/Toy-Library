@@ -38,32 +38,35 @@ function ContactDetailPage() {
   if (error) return <p>{error}</p>;
   if (!contactMessage) return <p>Message not found.</p>;
   return (
-    <main>
-      <div className="message-detail__item">
-        <p className="message-detail__label">ID:</p>
-        <p className="message-detail__text">{contactMessage.id}</p>
-      </div>
-      <div className="message-detail__item">
-        <p className="message-detail__label">Date:</p>
-        <p className="message-detail__text">
-          {formatDate(contactMessage.created_at)}
-        </p>
-      </div>
-      <div className="message-detail__item">
-        <p className="message-detail__label">Name:</p>
-        <p className="message-detail__text">{contactMessage.name}</p>
-      </div>
-      <div className="message-detail__item">
-        <p className="message-detail__label">Email:</p>
-        <p className="message-detail__text">{contactMessage.email}</p>
-      </div>
-      <div className="message-detail__item">
-        <p className="message-detail__label">Subject:</p>
-        <p className="message-detail__text">{contactMessage.email}</p>
-      </div>
-      <div className="message-detail__item">
-        <p className="message-detail__label">Message:</p>
-        <p className="message-detail__text">{contactMessage.message}</p>
+    <main className="message-detail">
+      <div className="message-detail__content">
+        <h1 className="message-detail__title">Message...</h1>
+        <div className="message-detail__item">
+          <p className="message-detail__label">ID:</p>
+          <p className="message-detail__text">{contactMessage.id}</p>
+        </div>
+        <div className="message-detail__item">
+          <p className="message-detail__label">Date:</p>
+          <p className="message-detail__text">
+            {formatDate(contactMessage.created_at)}
+          </p>
+        </div>
+        <div className="message-detail__item">
+          <p className="message-detail__label">Name:</p>
+          <p className="message-detail__text">{contactMessage.name}</p>
+        </div>
+        <div className="message-detail__item">
+          <p className="message-detail__label">Email:</p>
+          <p className="message-detail__text">{contactMessage.email}</p>
+        </div>
+        <div className="message-detail__item">
+          <p className="message-detail__label">Subject:</p>
+          <p className="message-detail__text">{contactMessage.email}</p>
+        </div>
+        <div className="message-detail__item">
+          <p className="message-detail__label">Message:</p>
+          <p className="message-detail__text">{contactMessage.message}</p>
+        </div>
       </div>
     </main>
   );

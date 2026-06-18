@@ -39,10 +39,12 @@ function ToyManagementPage() {
   return (
     <div className="toy-management-page">
       <main className="toy-management">
-        <div>
+        <div className="toy-management__title">
           <h1>Show All Toys</h1>
-          <div className="toy-management__actions">
-            <Link to="/admin/toys/new">Add New Toy</Link>
+          <div className="toy-management__actions toy-management__actions--add">
+            <Link to="/admin/toys/new" className="toy-management__button">
+              Add New Toy
+            </Link>
           </div>
         </div>
         <table className="toy-management__table">
@@ -83,7 +85,7 @@ function ToyManagementPage() {
                       to={`/admin/toys/${request.id}/edit`}
                       className="toy-management__button toy-management__button--check-message"
                     >
-                      Edit Toy
+                      Edit
                     </Link>
                   </div>
                 </td>

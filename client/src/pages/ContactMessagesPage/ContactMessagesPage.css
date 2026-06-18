@@ -1,7 +1,6 @@
 .contact-messages-page {
     min-height: 100vh;
     background-color: var(--teal-soft);
-
     display: flex;
     justify-content: center;
     padding: 2rem;
@@ -13,5 +12,50 @@
     padding: 1.2rem;
     vertical-align: middle;
     min-height: 4rem;
+
+}
+
+
+.contact-messages__actions {
+    padding: 5%;
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--teal);
+    color: var(--bg-section);
+    cursor: pointer;
+}
+
+.contact-messages__button,
+.contact-messages__button:visited,
+.contact-messages__button:hover,
+.contact-messages__button:active {
+    text-decoration: none;
+    color: var(--bg-section);
+}
+
+.contact-messages__actions:hover,
+.contact-messages__button--delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-messages__actions:active .contact-messages__button--delete:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.contact-messages__button--delete {
+    padding: 9%;
+    margin: 1%;
+    background-color: var(--mustard);
+    border-radius: 5px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-messages__header-row {
+    background-color: var(--soft-blue);
 
 }

@@ -75,6 +75,7 @@ function AddToyPage() {
 
   return (
     <section className="add-toy-form__form">
+      <h1>Add New Toy</h1>
       {!success ? (
         <form
           className="add-toy-form"
@@ -151,7 +152,7 @@ function AddToyPage() {
 
           <div className="add-toy-form__field">
             <label htmlFor="image">Add Image:</label>
-            <div className="add-toy-form__control add-toy-form__message">
+            <div className="add-toy-form__control add-toy-form__image">
               <input
                 id="image"
                 type="file"
