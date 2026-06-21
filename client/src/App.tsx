@@ -9,11 +9,12 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import AddToyPage from './pages/AddToyPage/AddToyPage';
 import BorrowRequestsPage from './pages/BorrowRequestsPage/BorrowRequestsPage';
 import PublicLayout from './layouts/PublicLayout';
-import AdminLayout from './layouts/AdminLayout';
+// import AdminLayout from './layouts/AdminLayout';
 import ContactMessagesPage from './pages/ContactMessagesPage/ContactMessagesPage';
 import ContactDetailPage from './pages/ContactDetailPage/ContactDetailPage';
 import ToyManagementPage from './pages/ToyManagementPage/ToyManagementPage';
 import EditToyPage from './pages/EditToyPage/EditToyPage';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute/ProtectedAdminRoute';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         </Route>
 
         {/* Admin site */}
-        <Route element={<AdminLayout />}>
+        <Route element={<ProtectedAdminRoute />}>
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/toys" element={<ToyManagementPage />} />
           <Route path="/admin/toys/:id/edit" element={<EditToyPage />} />
