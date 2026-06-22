@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const checkJwt = require('../middleware/checkJwt');
 
 router.post('/', async (req, res) => {
   try {
@@ -56,7 +57,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', checkJwt, async (req, res) => {
   const { id } = req.params;
   const { status, toy_id } = req.body;
 
@@ -106,7 +107,7 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req, res) => {
   const { id } = req.params;
 
   try {

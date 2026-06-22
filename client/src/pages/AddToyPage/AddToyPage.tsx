@@ -5,11 +5,13 @@ import type { Toy } from '../../types/toy';
 import { useForm } from 'react-hook-form';
 import { uploadImage } from '../../services/uploadService';
 import { createNewToy } from '../../services/toyService';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function AddToyPage() {
   const [success, setSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState('');
+  const { getAccessTokenSilently } = useAuth0();
 
   const {
     register,
@@ -51,12 +53,12 @@ function AddToyPage() {
       let imageUrl = '';
 
       if (selectedFile) {
-        imageUrl = await uploadImage(selectedFile);
+        imageUrl = await uploadImage(getAccessTokenSilently, selectedFile);
       }
 
       console.log('final imageUrl:', imageUrl);
 
-      await createNewToy({
+      await createNewToy(getAccessTokenSilently, {
         name: data.name,
         description: data.description,
         age_group: data.age_group,

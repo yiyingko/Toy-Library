@@ -7,6 +7,7 @@ import type { ToyFormData, Toy } from '../../types/toy';
 import { useForm } from 'react-hook-form';
 import { formatDate } from '../../utils/formatDate';
 import { uploadImage } from '../../services/uploadService';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function EditToyPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,8 @@ function EditToyPage() {
   const [success, setSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState('');
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const {
     register,
@@ -78,12 +81,12 @@ function EditToyPage() {
       let imageUrl = toy.image_path;
 
       if (selectedFile) {
-        imageUrl = await uploadImage(selectedFile);
+        imageUrl = await uploadImage(getAccessTokenSilently, selectedFile);
       }
 
       console.log('final imageUrl:', imageUrl);
 
-      await updateToyInformation({
+      await updateToyInformation(getAccessTokenSilently, {
         id: Number(id),
         name: data.name,
         description: data.description,

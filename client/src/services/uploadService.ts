@@ -1,9 +1,17 @@
-export async function uploadImage(file: File): Promise<string> {
+import { getAuthHeaders } from './getAuthHeaders';
+
+export async function uploadImage(
+  getAccessTokenSilently: () => Promise<string>,
+  file: File,
+): Promise<string> {
   const formData = new FormData();
   formData.append('image', file);
 
+  const headers = await getAuthHeaders(getAccessTokenSilently);
+
   const response = await fetch(`${import.meta.env.VITE_API_URL}/uploads`, {
     method: 'POST',
+    headers,
     body: formData,
   });
 

@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react';
 import { getDashboardSummary } from '../../services/adminService';
 import type { DashboardSummary } from '../../types/dashboard';
 import DateTime from '../../components/DateTime/DateTime';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function AdminDashboard() {
+  const { getAccessTokenSilently } = useAuth0();
+
   const [summary, setSummary] = useState<DashboardSummary>({
     pendingBorrowRequests: 0,
     unreadMessages: 0,
@@ -14,7 +17,7 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getDashboardSummary()
+    getDashboardSummary(getAccessTokenSilently)
       .then((response) => {
         setSummary(response);
         setLoading(false);

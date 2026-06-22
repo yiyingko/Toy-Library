@@ -4,10 +4,12 @@ import { getAllToys, deleteToy } from '../../services/toyService';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/formatDate';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function ToyManagementPage() {
   const [toys, setToys] = useState<Toy[]>([]);
   const [toysLoaded, setToysLoaded] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const fetchToys = async () => {
     try {
@@ -29,7 +31,7 @@ function ToyManagementPage() {
 
   const handleDeleteRequest = async (id: number) => {
     try {
-      await deleteToy(id);
+      await deleteToy(getAccessTokenSilently, id);
       fetchToys();
     } catch (error) {
       console.error(error);

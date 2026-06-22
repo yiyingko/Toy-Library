@@ -4,12 +4,12 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 
-
 const toyRoutes = require('./routes/toyRoutes');
 const borrowRequestRoutes = require('./routes/borrowRoutes');
 const contactMessageRoutes = require('./routes/contactRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const checkJwt = require('./middleware/checkJwt');
 
 const app = express();
 
@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
 app.use('/toys', toyRoutes);
 app.use('/borrow-requests', borrowRequestRoutes);
 app.use('/contacts', contactMessageRoutes);
-app.use('/admin', adminRoutes);
-app.use('/uploads', uploadRoutes);
+app.use('/admin', checkJwt, adminRoutes);
+app.use('/uploads', checkJwt, uploadRoutes);
 
 const PORT = process.env.PORT || 3000;
 
@@ -33,9 +33,6 @@ async function startServer() {
     const connection = await db.getConnection();
     console.log('Connected to MySQL');
     connection.release();
-
-    // const [rows] = await db.query('SELECT * FROM toys');
-    // console.log('Rows on startup:', rows);
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);

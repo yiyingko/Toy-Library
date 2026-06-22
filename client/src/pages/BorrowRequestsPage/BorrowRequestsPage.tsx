@@ -7,10 +7,12 @@ import {
   deleteBorrowRequest,
 } from '../../services/borrowService';
 import { formatDate } from '../../utils/formatDate';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function BorrowRequestsPage() {
   const [borrowRequests, setBorrowRequests] = useState<BorrowRequest[]>([]);
   const [requestsLoaded, setRequestsLoaded] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const fetchBorrowRequests = async () => {
     try {
@@ -32,7 +34,7 @@ function BorrowRequestsPage() {
 
   const approveBorrowStatus = async (data: UpdateBorrowStatusData) => {
     try {
-      await updateBorrowStatus(data);
+      await updateBorrowStatus(getAccessTokenSilently, data);
       await fetchBorrowRequests();
 
       console.log('approve submitted!');
@@ -43,7 +45,7 @@ function BorrowRequestsPage() {
 
   const handleDeleteRequest = async (id: number) => {
     try {
-      await deleteBorrowRequest(id);
+      await deleteBorrowRequest(getAccessTokenSilently, id);
       await fetchBorrowRequests();
     } catch (error) {
       console.error(error);

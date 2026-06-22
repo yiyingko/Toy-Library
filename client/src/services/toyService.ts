@@ -1,3 +1,5 @@
+import { getAuthHeaders } from './getAuthHeaders';
+
 export async function getAllToys() {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/toys`);
   if (!response.ok) {
@@ -14,9 +16,17 @@ export async function getToyById(id: number) {
   return response.json();
 }
 
-export async function deleteToy(id: number) {
+export async function deleteToy(
+  getAccessTokenSilently: () => Promise<string>,
+  id: number,
+) {
+  const authHeaders = await getAuthHeaders(getAccessTokenSilently);
+
   const response = await fetch(`${import.meta.env.VITE_API_URL}/toys/${id}`, {
     method: 'DELETE',
+    headers: {
+      ...authHeaders,
+    },
   });
 
   if (!response.ok) {
@@ -26,28 +36,34 @@ export async function deleteToy(id: number) {
   return response.json();
 }
 
-export async function updateToyInformation({
-  id,
-  name,
-  description,
-  age_group,
-  tags,
-  image_path,
-  is_available,
-  status,
-}: {
-  id: number;
-  name: string;
-  description: string;
-  age_group: string;
-  tags: string;
-  image_path: string;
-  is_available: boolean;
-  status: string;
-}) {
+export async function updateToyInformation(
+  getAccessTokenSilently: () => Promise<string>,
+  {
+    id,
+    name,
+    description,
+    age_group,
+    tags,
+    image_path,
+    is_available,
+    status,
+  }: {
+    id: number;
+    name: string;
+    description: string;
+    age_group: string;
+    tags: string;
+    image_path: string;
+    is_available: boolean;
+    status: string;
+  },
+) {
+  const authHeaders = await getAuthHeaders(getAccessTokenSilently);
+
   const response = await fetch(`${import.meta.env.VITE_API_URL}/toys/${id}`, {
     method: 'PATCH',
     headers: {
+      ...authHeaders,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -68,16 +84,22 @@ export async function updateToyInformation({
   return response.json();
 }
 
-export async function createNewToy(formData: {
-  name: string;
-  description: string;
-  age_group: string;
-  tags: string;
-  image_path: string;
-}) {
+export async function createNewToy(
+  getAccessTokenSilently: () => Promise<string>,
+  formData: {
+    name: string;
+    description: string;
+    age_group: string;
+    tags: string;
+    image_path: string;
+  },
+) {
+  const authHeaders = await getAuthHeaders(getAccessTokenSilently);
+
   const response = await fetch(`${import.meta.env.VITE_API_URL}/toys`, {
     method: 'POST',
     headers: {
+      ...authHeaders,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(formData),

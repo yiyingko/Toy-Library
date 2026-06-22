@@ -1,3 +1,5 @@
+import { getAuthHeaders } from './getAuthHeaders';
+
 export async function createContactMessage(formData: {
   name: string;
   email: string;
@@ -39,11 +41,18 @@ export async function getMessageById(id: number) {
   return response.json();
 }
 
-export async function deleteContactMessage(id: number) {
+export async function deleteContactMessage(
+  getAccessTokenSilently: () => Promise<string>,
+  id: number,
+) {
+  const authHeaders = await getAuthHeaders(getAccessTokenSilently);
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/contacts/${id}`,
     {
       method: 'DELETE',
+      headers: {
+        ...authHeaders,
+      },
     },
   );
 

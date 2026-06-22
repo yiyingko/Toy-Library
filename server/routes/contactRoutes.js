@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const checkJwt = require('../middleware/checkJwt');
 
 router.post('/', async (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -67,7 +68,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req, res) => {
   const { id } = req.params;
 
   try {

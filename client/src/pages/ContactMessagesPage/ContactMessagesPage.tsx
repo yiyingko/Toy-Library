@@ -7,10 +7,12 @@ import {
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/formatDate';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function ContactMessagesPage() {
   const [contactMessages, setContactMessages] = useState<Contact[]>([]);
   const [messagesLoaded, setMessagesLoaded] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const fetchContactMessages = async () => {
     try {
@@ -32,7 +34,7 @@ function ContactMessagesPage() {
 
   const handleDeleteRequest = async (id: number) => {
     try {
-      await deleteContactMessage(id);
+      await deleteContactMessage(getAccessTokenSilently, id);
       fetchContactMessages();
     } catch (error) {
       console.error(error);
