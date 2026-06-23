@@ -1,0 +1,46 @@
+.admin-login__content {
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.8;
+    gap: 20px;
+
+}
+
+.admin-login__link {
+    padding: 15% 20% 15% 20%;
+    border-radius: 12px;
+    background-color: var(--soft-blue);
+    margin-right: 15px;
+    font-size: 1rem;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.admin-login__link,
+.admin-login__link:visited,
+.admin-login__link:hover,
+.admin-login__link:active {
+    color: var(--bg-section);
+    text-decoration: none;
+}
+
+
+.admin-login__link:hover {
+    opacity: 0.7;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-login__link:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.admin-login__email {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
