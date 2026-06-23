@@ -14,7 +14,6 @@ const checkJwt = require('./middleware/checkJwt');
 const app = express();
 
 // app.use(cors());
-import cors from 'cors';
 
 app.use(
   cors({
