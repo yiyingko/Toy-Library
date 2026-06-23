@@ -1,0 +1,117 @@
+.add-toy-form__form {
+    min-height: 100vh;
+    background-color: var(--teal-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+
+
+.add-toy-form {
+    margin-top: 2%;
+    width: 40%;
+    height: 680px;
+    padding: 2%;
+    background-color: var(--coral-soft);
+    opacity: 0.8;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    padding: 1%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+}
+
+
+.add-toy-form__control {
+    width: 500px;
+    height: auto;
+    display: grid;
+
+}
+
+
+.add-toy-form__control label {
+    margin-bottom: 2%;
+}
+
+.add-toy-form__field textarea {
+    margin-top: 2%;
+}
+
+.add-toy-form__control input,
+textarea {
+    padding: 1.5%;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    color: var(--navy-900);
+}
+
+.add-toy-form__control input:focus,
+.add-toy-form__control textarea:focus {
+    border: 0.5px solid var(--soft-blue);
+}
+
+.add-toy-form__image {
+    margin-top: 1%;
+    padding: 4%;
+    background-color: var(--mustard);
+    border-radius: 5px;
+    font-weight: 700;
+    margin-bottom: 1%;
+}
+
+.add-toy-form__button {
+    padding: 2%;
+    background-color: var(--teal);
+    border-radius: 5px;
+    font-weight: 800;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.add-toy-success__btn:hover,
+.add-toy-form__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-toy-success__btn:active,
+.add-toy-form__button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.add-toy-success {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+.add-toy-success__btn {
+    margin-top: 2%;
+    padding: 3%;
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--teal);
+    font-size: 1.5rem;
+    color: var(--bg-section);
+    cursor: pointer;
+}
+
+
+.add-toy-success__btn,
+.add-toy-success__btn:visited,
+.add-toy-success__btn:hover,
+.add-toy-success__btn:active {
+    text-decoration: none;
+    color: var(--bg-section);
+}

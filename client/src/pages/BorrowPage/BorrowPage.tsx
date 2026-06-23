@@ -59,7 +59,7 @@ function BorrowPage() {
   const onSubmit = async (data: BorrowRequest) => {
     try {
       await createBorrowRequest({
-        toy_id: String(toy.id),
+        toy_id: Number(toy.id),
         borrower_name: data.borrower_name,
         borrower_email: data.borrower_email,
         message: data.message,

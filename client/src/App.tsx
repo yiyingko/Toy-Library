@@ -4,23 +4,42 @@ import HomePage from './pages/HomePage/HomePage';
 import ToyDetailPage from './pages/ToyDetailPage/ToyDetailPage';
 import BorrowPage from './pages/BorrowPage/BorrowPage';
 import AboutPage from './pages/AboutPage/AboutPage';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
 import ContactPage from './pages/ContactPage/ContactPage';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import AddToyPage from './pages/AddToyPage/AddToyPage';
+import BorrowRequestsPage from './pages/BorrowRequestsPage/BorrowRequestsPage';
+import PublicLayout from './layouts/PublicLayout';
+import ContactMessagesPage from './pages/ContactMessagesPage/ContactMessagesPage';
+import ContactDetailPage from './pages/ContactDetailPage/ContactDetailPage';
+import ToyManagementPage from './pages/ToyManagementPage/ToyManagementPage';
+import EditToyPage from './pages/EditToyPage/EditToyPage';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute/ProtectedAdminRoute';
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/toys" element={<ToyListPage />} />
-        <Route path="/toys/:toyId" element={<ToyDetailPage />} />
-        <Route path="/borrow/:toyId" element={<BorrowPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+        {/* Public site */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/toys" element={<ToyListPage />} />
+          <Route path="/toys/:toyId" element={<ToyDetailPage />} />
+          <Route path="/borrow/:toyId" element={<BorrowPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Route>
+
+        {/* Admin site */}
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/toys" element={<ToyManagementPage />} />
+          <Route path="/admin/toys/:id/edit" element={<EditToyPage />} />
+          <Route path="/admin/toys/new" element={<AddToyPage />} />
+          <Route path="/admin/requests" element={<BorrowRequestsPage />} />
+          <Route path="/admin/messages" element={<ContactMessagesPage />} />
+          <Route path="/admin/messages/:id" element={<ContactDetailPage />} />
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

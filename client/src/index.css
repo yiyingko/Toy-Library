@@ -7,6 +7,8 @@
   --coral: #FF6B6B;
   --teal: #2A9D8F;
   --mustard: #E9B949;
+  --soft-blue: #4B9CD3;
+  --coral-dark: #CD5D67;
 
   /* soft accents */
   --coral-soft: #FFE3E3;
@@ -20,6 +22,7 @@
   /*text*/
   --text-label: #041E2B;
   --text-description: #353E43;
+  --text: #FFFDD0;
 
   font: 18px/145%;
   letter-spacing: 0.18px;

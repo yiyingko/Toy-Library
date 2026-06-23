@@ -6,6 +6,17 @@ export type Toy = {
   tags: string;
   image_path: string;
   is_available: boolean;
-  created_at?: string;
+  created_at: string;
+  status: string;
+};
+
+export type ToyFormData = {
+  id: number;
+  name: string;
+  description: string;
+  age_group: string;
+  tags: string;
+  image_path: string;
+  is_available: boolean;
   status: string;
 };

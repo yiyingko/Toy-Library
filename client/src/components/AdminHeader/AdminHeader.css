@@ -1,0 +1,9 @@
+.admin-header {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6%;
+    background-color: var(--teal-soft);
+
+}
