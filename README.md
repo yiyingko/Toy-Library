@@ -1,6 +1,6 @@
 # Toy Library
 
-A full-stack toy lending platform that allows families to browse available toys, submit borrowing requests, and contact the library. Administrators can manage toys, review borrowing requests, and monitor activity through a protected dashboard.
+### A full-stack toy lending platform that allows families to browse available toys, submit borrowing requests, and contact the library. Administrators can manage toys, review borrowing requests, and monitor activity through a protected dashboard.
 ---
 ## About The Project
 
@@ -26,17 +26,17 @@ Administrative functionality is protected. Some data may be periodically reset d
 ## Screenshots
 
 <p align="center">
-  <img src="./screenshot/homepage.png" width="45%" alt="Home Page">
   <img src="./screenshot/toydetails.png" width="45%" alt="Toy Details Page">
+  <img src="./screenshot/borrowform.png" width="45%" alt="Borrow Page">
 </p>
 
 <p align="center">
-  <img src="./screenshot/borrowform.png" width="45%" alt="Borrow Page">
+  <img src="./screenshot/toy-management.png" width="45%" alt="Toy Management Page">
   <img src="./screenshot/admin-dashboard.png" width="45%" alt="Admin Dashboard">
 </p>
 
 <p align="center">
-  <img src="./screenshot/toy-management.png" width="70%" alt="Toy Management Page">
+   <img src="./screenshot/homepage.png" width="70%" alt="Home Page">
 </p>
 
 ---
