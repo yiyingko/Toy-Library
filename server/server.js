@@ -13,8 +13,6 @@ const checkJwt = require('./middleware/checkJwt');
 
 const app = express();
 
-// app.use(cors());
-
 app.use(
   cors({
     origin: ['http://localhost:5173', 'https://toylibrary.netlify.app'],

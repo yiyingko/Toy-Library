@@ -18,7 +18,7 @@
 3. Build AddToyForm page
 4. Build BorrowRequestsManagement page x
 5. Connect them to real backend endpoints x
-6. Then protect /admin with Auth0
+6. Then protect /admin with Auth0 x
 
 ### v2.1 — Discovery & communication
 
