@@ -2,9 +2,15 @@
 
 # Toy Library
 
-A full-stack toy borrowing platform built with React, Express, and MySQL.
+## A full-stack toy lending platform that allows families to browse available toys, submit borrowing requests, and contact the library. Administrators can manage toys, review borrowing requests, and monitor activity through a protected dashboard.
 
-This project simulates a community toy library where users can browse available toys and submit borrowing requests through a responsive web application.
+## About The Project
+
+Toy Library was created to simulate a real-world toy lending service while providing a practical environment to develop and deploy a full-stack application.
+
+The project focuses on inventory management, borrowing workflows, authentication, image uploads, and deployment to a production environment.
+
+---
 
 ## Live Demo
 
@@ -12,18 +18,53 @@ Frontend: https://toylibrary.netlify.app/
 
 ---
 
+## Portfolio Demo
+
+This application is a portfolio project and demonstration environment.
+Administrative functionality is protected. Some data may be periodically reset during development and testing.
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="./screenshot/homepage.png" width="45%" alt="Home Page">
+  <img src="./screenshot/toydetails.png" width="45%" alt="Toy Details Page">
+</p>
+
+<p align="center">
+  <img src="./screenshot/borrowform.png" width="45%" alt="Borrow Page">
+  <img src="./screenshot/admin-dashboard.png" width="45%" alt="Admin Dashboard">
+</p>
+
+<p align="center">
+  <img src="./screenshot/toy-management.png" width="70%" alt="Toy Management Page">
+</p>
+---
+
 ## Features
 
-### Current Features (V1)
+### Features (V2)
 
-- Browse toy collection
+### Public Features
+
+- Browse available toys
 - View toy details
-- Submit borrow requests
-- Submit messages
-- Form validation
-- REST API integration
-- MySQL database persistence
-- Cloud deployment
+- Submit borrowing requests
+- Contact the toy library
+
+### Admin Features
+
+- Secure authentication with Auth0
+- Protected admin routes
+- Dashboard with activity summary
+- View and manage borrowing requests
+- Approve or reject requests
+- Manage toy availability status
+- View contact messages
+- Add new toys
+- Edit existing toys
+- Upload toy images using Cloudinary
 
 ---
 
@@ -36,19 +77,21 @@ Frontend: https://toylibrary.netlify.app/
 - Vite
 - React Router DOM
 - React Hook Form
-- CSS (BEM naming convention)
+- CSS (BEM methodology)
 
 ### Backend
 
 - Node.js
-- Express
-- MySQL2
-- dotenv
-- CORS
+- Express.js
+- MySQL
 
-### Database
+### Authentication
 
-- MySQL (Aiven managed database)
+- Auth0
+
+### Media Storage
+
+- Cloudinary
 
 ### Deployment
 
@@ -61,11 +104,15 @@ Frontend: https://toylibrary.netlify.app/
 ## Architecture
 
 ```txt
-Client (React/Vite)
-        ↓
-Express API (Railway)
-        ↓
-MySQL Database (Aiven)
+React + TypeScript (Netlify)
+            ↓
+      Express API
+         (Railway)
+            ↓
+      MySQL (Aiven)
+
+Auth0 ───────┘
+Cloudinary ──┘
 ```
 
 ---
@@ -90,6 +137,69 @@ toy-library/
 
 ---
 
+## Database Design
+
+### Toys
+
+Stores toy information including:
+
+- Name
+- Description
+- Age group
+- Tags
+- Image URL
+- Availability status
+
+### Borrow Requests
+
+Stores borrowing requests including:
+
+- Borrower details
+- Requested toy
+- Request status
+- Submission date
+
+### Contact Messages
+
+Stores enquiries submitted through the contact form.
+
+---
+
+## Borrowing Workflow
+
+### Pending
+
+Request has been submitted and awaits review.
+
+### Approved
+
+Request has been approved and the toy becomes unavailable.
+
+### Rejected
+
+Request has been reviewed but not approved.
+
+### Completed
+
+Toy has been returned and becomes available again.
+
+---
+
+## Authentication & Security
+
+Admin functionality is protected using Auth0 authentication.
+
+Only authenticated users can access:
+
+- Dashboard
+- Toy management
+- Borrow request management
+- Message management
+
+Backend routes are secured using JWT validation.
+
+---
+
 ## Environment Variables
 
 ### Client
@@ -98,6 +208,10 @@ Create `client/.env`
 
 ```env
 VITE_API_URL=http://localhost:3001
+
+VITE_AUTH0_DOMAIN=
+VITE_AUTH0_CLIENT_ID=
+VITE_AUTH0_AUDIENCE=
 ```
 
 ### Server
@@ -112,6 +226,13 @@ DB_PORT=
 DB_USER=
 DB_PASSWORD=
 DB_NAME=
+
+AUTH0_AUDIENCE=
+AUTH0_ISSUER_BASE_URL=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 ```
 
 ---
@@ -193,28 +314,29 @@ Example request body:
 
 ---
 
-## Future Improvements (V2)
+## Future Improvements (V3)
 
-- Admin dashboard
-- Authentication & authorization
-- Image upload & cloud storage
-- Borrow request management
+- Advanced toy search and filtering
 - Pagination
-- Search & filtering
+- Demo user account with permissions
 - Email notifications
+- AI-assisted toy descriptions
+- Borrowing history
+- Enhanced analytics dashboard
 
 ---
 
-## Learning Goals
+## What I Learned
 
-This project was built to practice:
+This project provided hands-on experience with:
 
-- Full-stack application architecture
-- REST API design
-- Database integration
-- Cloud deployment workflow
-- Environment variable management
-- Frontend/backend separation
+- Building a full-stack application using React and Express
+- Designing and querying relational databases with MySQL
+- Authentication and route protection using Auth0
+- Image uploads and cloud storage with Cloudinary
+- Deploying production applications using Netlify and Railway
+- Debugging real-world deployment and environment configuration issues
+- Managing project development using Git branches and pull request workflows
 
 ---
 
