@@ -4,12 +4,53 @@ const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
 // GET /toys
+// router.get('/', async (req, res) => {
+//   console.log('GET /toys called');
+
+//   try {
+//     const [rows] = await db.query('SELECT * FROM toys');
+//     res.json(rows);
+//   } catch (error) {
+//     console.error('Error in /toys:', error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 router.get('/', async (req, res) => {
+  const all = req.query.all === 'true';
   console.log('GET /toys called');
 
   try {
-    const [rows] = await db.query('SELECT * FROM toys');
-    res.json(rows);
+    if (all) {
+      const [rows] = await db.query('SELECT * FROM toys');
+      return res.json({ toys: rows, total: rows.length });
+    }
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 12;
+
+    const offset = (page - 1) * limit;
+
+    console.log({
+      page,
+      limit,
+      offset,
+    });
+
+    const [rows] = await db.query('SELECT * FROM toys LIMIT ? OFFSET ?', [
+      limit,
+      offset,
+    ]);
+    const [[total]] = await db.query(
+      `
+      SELECT COUNT(*) AS total
+      FROM toys
+      `,
+    );
+    res.json({
+      toys: rows,
+      total: total.total,
+    });
   } catch (error) {
     console.error('Error in /toys:', error.message);
     res.status(500).json({ error: error.message });
