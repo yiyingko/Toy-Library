@@ -3,19 +3,6 @@ const router = express.Router();
 const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
-// GET /toys
-// router.get('/', async (req, res) => {
-//   console.log('GET /toys called');
-
-//   try {
-//     const [rows] = await db.query('SELECT * FROM toys');
-//     res.json(rows);
-//   } catch (error) {
-//     console.error('Error in /toys:', error.message);
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
 router.get('/', async (req, res) => {
   const all = req.query.all === 'true';
   console.log('GET /toys called');

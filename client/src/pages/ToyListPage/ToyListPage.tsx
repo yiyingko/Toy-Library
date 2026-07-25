@@ -51,7 +51,7 @@ function ToyListPage() {
           toys.map((toy) => <ToyCard key={toy.id} toy={toy} />)
         )}
       </div>
-      <ReactPaginate
+      <ReactPaginate 
         /* essential*/
         pageCount={pageCount} // Total number of pages
         onPageChange={handlePageClick} // What happens when a page is clicked

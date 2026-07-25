@@ -5,3 +5,28 @@
     grid-template-columns: repeat(4, 25%);
     padding: 2% 5% 2% 5%;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 3rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination li a {
+    display: block;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--text-description);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination li.active a {
+    background: var(--blue-misty);
+}
+
+.pagination li a:hover {
+    background: var(--teal-soft);
+}
