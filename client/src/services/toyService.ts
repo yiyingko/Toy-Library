@@ -9,9 +9,9 @@ export async function getAllToys() {
   return data.toys;
 }
 
-export async function getPaginatedToys(page = 1, limit = 12) {
+export async function getPaginatedToys(search = '', page = 1, limit = 12) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/toys?page=${page}&limit=${limit}`,
+    `${import.meta.env.VITE_API_URL}/toys?search=${encodeURIComponent(search)}&page=${page}&limit=${limit}`,
   );
   if (!response.ok) {
     throw new Error('Failed to fetch toys');
