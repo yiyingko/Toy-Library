@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 12;
-    const search = `%${req.query.search}%`;
+    const search = `%${req.query.search || ''}%`;
 
     const offset = (page - 1) * limit;
 
@@ -38,7 +38,11 @@ router.get('/', async (req, res) => {
       `
       SELECT COUNT(*) AS total
       FROM toys
+      WHERE name LIKE ?
+      OR description LIKE ?
+      OR tags LIKE ?
       `,
+      [search, search, search],
     );
     res.json({
       toys: rows,

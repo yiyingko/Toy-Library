@@ -4,6 +4,7 @@ import ToyCard from '../../components/ToyCard/ToyCard';
 import { getPaginatedToys } from '../../services/toyService';
 import './ToyListPage.css';
 import ReactPaginateModule from 'react-paginate';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 function ToyListPage() {
   const [toys, setToys] = useState<Toy[]>([]);
@@ -12,6 +13,8 @@ function ToyListPage() {
   const [pageCount, setPageCount] = useState(0); // Total number of pages
   const [currentPage, setCurrentPage] = useState(0); //(0-indexed)
 
+  const [search, setSearch] = useState('');
+
   const ReactPaginate =
     (ReactPaginateModule as any).default || ReactPaginateModule;
   // react-paginate is wrapped as a module object in this Vite/TS setup,
@@ -19,7 +22,7 @@ function ToyListPage() {
 
   useEffect(() => {
     console.log('currentPage:', currentPage);
-    getPaginatedToys(currentPage + 1, 12)
+    getPaginatedToys(search, currentPage + 1, 12)
       .then((response) => {
         console.log('pagination response:', response);
 
@@ -31,7 +34,7 @@ function ToyListPage() {
         console.error('Failed to fetch toys:', error);
         setToysLoaded(true);
       });
-  }, [currentPage]);
+  }, [currentPage, search]);
 
   if (!toysLoaded) {
     return <p>Loading toys...</p>;
@@ -44,6 +47,7 @@ function ToyListPage() {
 
   return (
     <>
+      <Sidebar onSearch={setSearch} />
       <div className="toy-list">
         {toys.length === 0 ? (
           <p>No toys found.</p>
@@ -51,7 +55,7 @@ function ToyListPage() {
           toys.map((toy) => <ToyCard key={toy.id} toy={toy} />)
         )}
       </div>
-      <ReactPaginate 
+      <ReactPaginate
         /* essential*/
         pageCount={pageCount} // Total number of pages
         onPageChange={handlePageClick} // What happens when a page is clicked
