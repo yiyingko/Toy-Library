@@ -3,6 +3,57 @@ const router = express.Router();
 const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
+// router.get('/', async (req, res) => {
+//   const all = req.query.all === 'true';
+//   console.log('GET /toys called');
+
+//   try {
+//     if (all) {
+//       const [rows] = await db.query('SELECT * FROM toys');
+//       return res.json({ toys: rows, total: rows.length });
+//     }
+
+//     const page = Number(req.query.page) || 1;
+//     const limit = Number(req.query.limit) || 12;
+//     const search = `%${req.query.search || ''}%`;
+
+//     const offset = (page - 1) * limit;
+
+//     console.log({
+//       page,
+//       limit,
+//       offset,
+//     });
+//     const [rows] = await db.query(
+//       `SELECT *
+//    FROM toys
+//    WHERE name LIKE ?
+//       OR description LIKE ?
+//       OR tags LIKE ?
+//    LIMIT ? OFFSET ?`,
+//       [search, search, search, limit, offset],
+//     );
+
+//     const [[total]] = await db.query(
+//       `
+//       SELECT COUNT(*) AS total
+//       FROM toys
+//       WHERE name LIKE ?
+//       OR description LIKE ?
+//       OR tags LIKE ?
+//       `,
+//       [search, search, search],
+//     );
+//     res.json({
+//       toys: rows,
+//       total: total.total,
+//     });
+//   } catch (error) {
+//     console.error('Error in /toys:', error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 router.get('/', async (req, res) => {
   const all = req.query.all === 'true';
   console.log('GET /toys called');
@@ -16,6 +67,8 @@ router.get('/', async (req, res) => {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 12;
     const search = `%${req.query.search || ''}%`;
+    const age = req.query.age || '';
+    const [minAge, maxAge] = age.split('-').map(Number);
 
     const offset = (page - 1) * limit;
 
@@ -27,22 +80,30 @@ router.get('/', async (req, res) => {
     const [rows] = await db.query(
       `SELECT *
    FROM toys
-   WHERE name LIKE ?
-      OR description LIKE ?
-      OR tags LIKE ?
+   WHERE (
+     name LIKE ?
+     OR description LIKE ?
+     OR tags LIKE ?
+   )
+   AND CAST(SUBSTRING_INDEX(age_group, '-', 1) AS UNSIGNED) <= ?
+   AND CAST(SUBSTRING_INDEX(age_group, '-', -1) AS UNSIGNED) >= ?
    LIMIT ? OFFSET ?`,
-      [search, search, search, limit, offset],
+      [search, search, search, maxAge, minAge, limit, offset],
     );
 
     const [[total]] = await db.query(
       `
       SELECT COUNT(*) AS total
       FROM toys
-      WHERE name LIKE ?
-      OR description LIKE ?
-      OR tags LIKE ?
+        WHERE (
+     name LIKE ?
+     OR description LIKE ?
+     OR tags LIKE ?
+   )
+   AND CAST(SUBSTRING_INDEX(age_group, '-', 1) AS UNSIGNED) <= ?
+   AND CAST(SUBSTRING_INDEX(age_group, '-', -1) AS UNSIGNED) >= ?
       `,
-      [search, search, search],
+      [search, search, search, maxAge, minAge],
     );
     res.json({
       toys: rows,
