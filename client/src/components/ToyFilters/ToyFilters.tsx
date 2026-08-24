@@ -1,18 +1,18 @@
 import AgeFilter from '../AgeFilter/AgeFilter';
 import SearchBar from '../SearchBar/SearchBar';
-import './Sidebar.css';
+import './ToyFilters.css';
 
-type SidebarProps = {
+type ToyFiltersProps = {
   onSearch: (search: string) => void;
   onAgeChange: (age: string) => void;
   onAvailabilityChange: (available: boolean) => void;
 };
 
-function SideBar({
+function ToyFilters({
   onSearch,
   onAgeChange,
   onAvailabilityChange,
-}: SidebarProps) {
+}: ToyFiltersProps) {
   return (
     <>
       <SearchBar onSearch={onSearch} />
@@ -24,4 +24,4 @@ function SideBar({
   );
 }
 
-export default SideBar;
+export default ToyFilters;

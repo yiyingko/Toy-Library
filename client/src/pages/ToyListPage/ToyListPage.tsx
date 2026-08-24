@@ -4,7 +4,7 @@ import ToyCard from '../../components/ToyCard/ToyCard';
 import { getPaginatedToys } from '../../services/toyService';
 import './ToyListPage.css';
 import ReactPaginateModule from 'react-paginate';
-import Sidebar from '../../components/Sidebar/Sidebar';
+import ToyFilters from '../../components/ToyFilters/ToyFilters';
 
 function ToyListPage() {
   const [toys, setToys] = useState<Toy[]>([]);
@@ -49,7 +49,7 @@ function ToyListPage() {
 
   return (
     <>
-      <Sidebar
+      <ToyFilters
         onSearch={setSearch}
         onAgeChange={setAge}
         onAvailabilityChange={setAvailable}
