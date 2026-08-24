@@ -2,9 +2,10 @@ import './AgeFilter.css';
 
 type AgeFilterProps = {
   onAgeChange: (age: string) => void;
+  onAvailabilityChange: (available: boolean) => void;
 };
 
-function AgeFilter({ onAgeChange }: AgeFilterProps) {
+function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
   return (
     <div>
       <fieldset>
@@ -56,13 +57,13 @@ function AgeFilter({ onAgeChange }: AgeFilterProps) {
         </label>
       </fieldset>
 
-      {/* <label>
-    <input
-      type="checkbox"
-      onChange={(e) => onAvailabilityChange(e.target.checked)}
-    />
-    Available only
-  </label> */}
+      <label>
+        <input
+          type="checkbox"
+          onChange={(e) => onAvailabilityChange(e.target.checked)}
+        />
+        Available only
+      </label>
     </div>
   );
 }

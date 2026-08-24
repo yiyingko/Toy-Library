@@ -5,13 +5,21 @@ import './Sidebar.css';
 type SidebarProps = {
   onSearch: (search: string) => void;
   onAgeChange: (age: string) => void;
+  onAvailabilityChange: (available: boolean) => void;
 };
 
-function SideBar({ onSearch, onAgeChange }: SidebarProps) {
+function SideBar({
+  onSearch,
+  onAgeChange,
+  onAvailabilityChange,
+}: SidebarProps) {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-      <AgeFilter onAgeChange={onAgeChange} />
+      <AgeFilter
+        onAgeChange={onAgeChange}
+        onAvailabilityChange={onAvailabilityChange}
+      />
     </>
   );
 }

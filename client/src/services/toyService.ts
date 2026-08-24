@@ -22,11 +22,12 @@ export async function getAllToys() {
 export async function getPaginatedToys(
   search = '',
   age = '',
+  available = false,
   page = 1,
   limit = 12,
 ) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/toys?search=${encodeURIComponent(search)}&age=${encodeURIComponent(age)}&page=${page}&limit=${limit}`,
+    `${import.meta.env.VITE_API_URL}/toys?search=${encodeURIComponent(search)}&age=${encodeURIComponent(age)}&available=${available}&page=${page}&limit=${limit}`,
   );
 
   if (!response.ok) {
