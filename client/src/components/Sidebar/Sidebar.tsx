@@ -4,13 +4,14 @@ import './Sidebar.css';
 
 type SidebarProps = {
   onSearch: (search: string) => void;
+  onAgeChange: (age: string) => void;
 };
 
-function SideBar({ onSearch }: SidebarProps) {
+function SideBar({ onSearch, onAgeChange }: SidebarProps) {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-      <AgeFilter />
+      <AgeFilter onAgeChange={onAgeChange} />
     </>
   );
 }

@@ -14,6 +14,7 @@ function ToyListPage() {
   const [currentPage, setCurrentPage] = useState(0); //(0-indexed)
 
   const [search, setSearch] = useState('');
+  const [age, setAge] = useState('');
 
   const ReactPaginate =
     (ReactPaginateModule as any).default || ReactPaginateModule;
@@ -22,7 +23,7 @@ function ToyListPage() {
 
   useEffect(() => {
     console.log('currentPage:', currentPage);
-    getPaginatedToys(search, currentPage + 1, 12)
+    getPaginatedToys(search, age, currentPage + 1, 12)
       .then((response) => {
         console.log('pagination response:', response);
 
@@ -34,7 +35,7 @@ function ToyListPage() {
         console.error('Failed to fetch toys:', error);
         setToysLoaded(true);
       });
-  }, [currentPage, search]);
+  }, [currentPage, search, age]);
 
   if (!toysLoaded) {
     return <p>Loading toys...</p>;
@@ -47,7 +48,7 @@ function ToyListPage() {
 
   return (
     <>
-      <Sidebar onSearch={setSearch} />
+      <Sidebar onSearch={setSearch} onAgeChange={setAge} />
       <div className="toy-list">
         {toys.length === 0 ? (
           <p>No toys found.</p>

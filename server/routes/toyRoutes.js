@@ -3,72 +3,25 @@ const router = express.Router();
 const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
-// router.get('/', async (req, res) => {
-//   const all = req.query.all === 'true';
-//   console.log('GET /toys called');
-
-//   try {
-//     if (all) {
-//       const [rows] = await db.query('SELECT * FROM toys');
-//       return res.json({ toys: rows, total: rows.length });
-//     }
-
-//     const page = Number(req.query.page) || 1;
-//     const limit = Number(req.query.limit) || 12;
-//     const search = `%${req.query.search || ''}%`;
-
-//     const offset = (page - 1) * limit;
-
-//     console.log({
-//       page,
-//       limit,
-//       offset,
-//     });
-//     const [rows] = await db.query(
-//       `SELECT *
-//    FROM toys
-//    WHERE name LIKE ?
-//       OR description LIKE ?
-//       OR tags LIKE ?
-//    LIMIT ? OFFSET ?`,
-//       [search, search, search, limit, offset],
-//     );
-
-//     const [[total]] = await db.query(
-//       `
-//       SELECT COUNT(*) AS total
-//       FROM toys
-//       WHERE name LIKE ?
-//       OR description LIKE ?
-//       OR tags LIKE ?
-//       `,
-//       [search, search, search],
-//     );
-//     res.json({
-//       toys: rows,
-//       total: total.total,
-//     });
-//   } catch (error) {
-//     console.error('Error in /toys:', error.message);
-//     res.status(500).json({ error: error.message });
-//   }
-// });
+//GET/toys
 
 router.get('/', async (req, res) => {
   const all = req.query.all === 'true';
   console.log('GET /toys called');
 
   try {
+    //All = true, select all return rows and total immediately
     if (all) {
       const [rows] = await db.query('SELECT * FROM toys');
       return res.json({ toys: rows, total: rows.length });
     }
-
+    // two stages to get rows and total
+    //Search and/or age filter (if there is age condition push extra query and params)
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 12;
     const search = `%${req.query.search || ''}%`;
     const age = req.query.age || '';
-    const [minAge, maxAge] = age.split('-').map(Number);
+    const availableOnly = req.query.available === 'true';
 
     const offset = (page - 1) * limit;
 
@@ -77,34 +30,44 @@ router.get('/', async (req, res) => {
       limit,
       offset,
     });
+
+    const conditions = [`(name LIKE ? OR description LIKE ? OR tags LIKE ?)`];
+    const params = [search, search, search];
+
+    if (age) {
+      const [minAge, maxAge] = age.split('-').map(Number);
+
+      conditions.push(
+        `CAST(SUBSTRING_INDEX(age_group, '-', 1) AS UNSIGNED) <= ?
+     AND CAST(SUBSTRING_INDEX(age_group, '-', -1) AS UNSIGNED) >= ?`,
+      );
+
+      params.push(maxAge, minAge);
+    }
+
+    if (availableOnly) {
+      conditions.push(`status = ?`);
+      params.push('available');
+    }
+
     const [rows] = await db.query(
       `SELECT *
    FROM toys
-   WHERE (
-     name LIKE ?
-     OR description LIKE ?
-     OR tags LIKE ?
-   )
-   AND CAST(SUBSTRING_INDEX(age_group, '-', 1) AS UNSIGNED) <= ?
-   AND CAST(SUBSTRING_INDEX(age_group, '-', -1) AS UNSIGNED) >= ?
+   WHERE ${conditions.join(' AND ')}
    LIMIT ? OFFSET ?`,
-      [search, search, search, maxAge, minAge, limit, offset],
+      [...params, limit, offset],
     );
 
+    //getting the params and condition from previous for total
     const [[total]] = await db.query(
       `
-      SELECT COUNT(*) AS total
-      FROM toys
-        WHERE (
-     name LIKE ?
-     OR description LIKE ?
-     OR tags LIKE ?
-   )
-   AND CAST(SUBSTRING_INDEX(age_group, '-', 1) AS UNSIGNED) <= ?
-   AND CAST(SUBSTRING_INDEX(age_group, '-', -1) AS UNSIGNED) >= ?
-      `,
-      [search, search, search, maxAge, minAge],
+  SELECT COUNT(*) AS total
+  FROM toys
+  WHERE ${conditions.join(' AND ')}
+  `,
+      params,
     );
+    // finally return rows and total
     res.json({
       toys: rows,
       total: total.total,
