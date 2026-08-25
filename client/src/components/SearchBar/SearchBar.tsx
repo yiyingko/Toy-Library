@@ -15,17 +15,22 @@ function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="search">Search Toy:</label>
+    <form className="search-bar" onSubmit={handleSubmit}>
+      <label className="search-bar__label" htmlFor="search">
+        Search Toy:
+      </label>
 
       <input
+        className="search-bar__input"
         id="search"
         type="search"
         value={searchInput}
         onChange={(event) => setSearchInput(event.target.value)}
       />
 
-      <button type="submit">Search</button>
+      <button className="search-bar__button" type="submit">
+        Search
+      </button>
     </form>
   );
 }

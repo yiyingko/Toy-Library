@@ -1,4 +1,10 @@
-.toy-list {
+.toy-list-page {
+    display: grid;
+    place-items: center;
+}
+
+
+.toy-list-page__grid {
     width: 100vw;
     display: grid;
     place-items: center;

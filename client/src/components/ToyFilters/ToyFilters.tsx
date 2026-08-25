@@ -14,13 +14,14 @@ function ToyFilters({
   onAvailabilityChange,
 }: ToyFiltersProps) {
   return (
-    <>
+    <div className="toy-filters">
       <SearchBar onSearch={onSearch} />
+
       <AgeFilter
         onAgeChange={onAgeChange}
         onAvailabilityChange={onAvailabilityChange}
       />
-    </>
+    </div>
   );
 }
 

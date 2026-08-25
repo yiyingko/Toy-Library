@@ -48,34 +48,34 @@ function ToyListPage() {
   console.log('ReactPaginate:', ReactPaginate);
 
   return (
-    <>
+    <main className="toy-list-page">
       <ToyFilters
         onSearch={setSearch}
         onAgeChange={setAge}
         onAvailabilityChange={setAvailable}
       />
-      <div className="toy-list">
+
+      <div className="toy-list-page__grid">
         {toys.length === 0 ? (
-          <p>No toys found.</p>
+          <p className="toy-list-page__empty">No toys found.</p>
         ) : (
           toys.map((toy) => <ToyCard key={toy.id} toy={toy} />)
         )}
       </div>
+
       <ReactPaginate
-        /* essential*/
-        pageCount={pageCount} // Total number of pages
-        onPageChange={handlePageClick} // What happens when a page is clicked
-        previousLabel={'Prev'}
-        nextLabel={'Next'}
-        /*styling*/
-        breakLabel={'...'}
-        breakClassName={'break-me'} //style for breakLabel
-        marginPagesDisplayed={2} // How many pages to show at the beginning and end
-        pageRangeDisplayed={3} // How many pages to show around the current page
-        containerClassName={'pagination'} // CSS class for the pagination container
-        activeClassName={'active'} // CSS class for the active page
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        previousLabel="Prev"
+        nextLabel="Next"
+        breakLabel="..."
+        breakClassName="pagination__break"
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        containerClassName="pagination"
+        activeClassName="pagination__page--active"
       />
-    </>
+    </main>
   );
 }
 

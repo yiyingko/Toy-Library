@@ -7,11 +7,13 @@ type AgeFilterProps = {
 
 function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
   return (
-    <div>
-      <fieldset>
-        <legend>Age</legend>
-        <label>
+    <div className="age-filter">
+      <fieldset className="age-filter__group">
+        <legend className="age-filter__title visually-hidden">Age</legend>
+
+        <label className="age-filter__option">
           <input
+            className="age-filter__input"
             type="radio"
             name="age"
             value=""
@@ -19,8 +21,10 @@ function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
           />
           All ages
         </label>
-        <label>
+
+        <label className="age-filter__option">
           <input
+            className="age-filter__input"
             type="radio"
             name="age"
             value="0-2"
@@ -28,8 +32,9 @@ function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
           />
           0–2 years
         </label>
-        <label>
+        <label className="age-filter__option">
           <input
+            className="age-filter__input"
             type="radio"
             name="age"
             value="3-5"
@@ -37,8 +42,9 @@ function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
           />
           3–5 years
         </label>
-        <label>
+        <label className="age-filter__option">
           <input
+            className="age-filter__input"
             type="radio"
             name="age"
             value="6-8"
@@ -46,8 +52,9 @@ function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
           />
           6–8 years
         </label>
-        <label>
+        <label className="age-filter__option">
           <input
+            className="age-filter__input"
             type="radio"
             name="age"
             value="9-10"
@@ -55,14 +62,16 @@ function AgeFilter({ onAgeChange, onAvailabilityChange }: AgeFilterProps) {
           />
           9–10 years
         </label>
+        {/* other age options */}
       </fieldset>
 
-      <label>
+      <label className="age-filter__availability">
         <input
+          className="age-filter__input"
           type="checkbox"
           onChange={(e) => onAvailabilityChange(e.target.checked)}
         />
-        Available only
+        <span className="age-filter__availability-text">Available only</span>
       </label>
     </div>
   );
