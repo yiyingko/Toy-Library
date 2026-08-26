@@ -29,8 +29,9 @@
     cursor: pointer;
 }
 
-.pagination li.active a {
-    background: var(--blue-misty);
+.pagination__page--active {
+    background-color: var(--blue-misty);
+    border-radius: 6px;
 }
 
 .pagination li a:hover {
