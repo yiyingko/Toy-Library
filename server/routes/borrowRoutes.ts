@@ -1,9 +1,11 @@
+import type { Request, Response } from 'express';
+
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const { toy_id, borrower_name, borrower_email, message } = req.body;
 
@@ -27,12 +29,12 @@ router.post('/', async (req, res) => {
       borrowRequestId: result.insertId,
     });
   } catch (error) {
-    console.error('Error creating borrow request:', error.message);
+    console.error('Error creating borrow request:', error);
     res.status(500).json({ error: 'Failed to create borrow request' });
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   console.log('GET /borrow-requests route hit');
   try {
     const [rows] = await db.query(`
@@ -57,7 +59,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.patch('/:id', checkJwt, async (req, res) => {
+router.patch('/:id', checkJwt, async (req: Request, res: Response) => {
   const { id } = req.params;
   const { status, toy_id } = req.body;
 
@@ -99,15 +101,15 @@ router.patch('/:id', checkJwt, async (req, res) => {
       message: 'Borrow request updated successfully',
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
 
     res.status(500).json({
-      error: error.message,
+      message: 'Failed to update borrow requests',
     });
   }
 });
 
-router.delete('/:id', checkJwt, async (req, res) => {
+router.delete('/:id', checkJwt, async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -129,10 +131,10 @@ router.delete('/:id', checkJwt, async (req, res) => {
       message: 'Borrow request deleted successfully',
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
 
     res.status(500).json({
-      error: error.message,
+      message: 'Failed to delete borrow requests',
     });
   }
 });

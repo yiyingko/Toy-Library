@@ -1,9 +1,11 @@
+import type { Request, Response } from 'express';
+
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const checkJwt = require('../middleware/checkJwt');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
   const { name, email, subject, message } = req.body;
 
   if (!name || !email || !message) {
@@ -21,12 +23,12 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ message: 'Message received successfully.' });
   } catch (error) {
-    console.error('Error saving contact message:', error.message);
+    console.error('Error saving contact message:', error);
     res.status(500).json({ error: 'Something went wrong.' });
   }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   console.log('GET /contact-requests route hit');
   try {
     const [rows] = await db.query(`
@@ -48,7 +50,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -63,12 +65,12 @@ router.get('/:id', async (req, res) => {
 
     res.json(rows[0]);
   } catch (error) {
-    console.error('Error in /contacts/:id:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error('Error in /contacts/:id:', error);
+    res.status(500).json({ message: 'Failed to fetch contact message' });
   }
 });
 
-router.delete('/:id', checkJwt, async (req, res) => {
+router.delete('/:id', checkJwt, async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -90,10 +92,10 @@ router.delete('/:id', checkJwt, async (req, res) => {
       message: 'Message deleted successfully',
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
 
     res.status(500).json({
-      error: error.message,
+      message: 'Failed to delete contact messages',
     });
   }
 });

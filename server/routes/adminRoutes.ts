@@ -1,8 +1,10 @@
+import type { Request, Response } from 'express';
+
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.get('/dashboard-summary', async (req, res) => {
+router.get('/dashboard-summary', async (req: Request, res: Response) => {
   try {
     const [[borrowResult]] = await db.query(
       `

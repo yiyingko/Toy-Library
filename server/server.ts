@@ -1,4 +1,5 @@
 require('dotenv').config();
+import type { Request, Response } from 'express';
 
 const express = require('express');
 const cors = require('cors');
@@ -22,7 +23,7 @@ app.use(
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('API running');
 });
 
@@ -44,7 +45,11 @@ async function startServer() {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error('MySQL connection failed:', error.message);
+    if (error instanceof Error) {
+      console.error('MySQL connection failed:', error.message);
+    } else {
+      console.error('MySQL connection failed:', error);
+    }
   }
 }
 
