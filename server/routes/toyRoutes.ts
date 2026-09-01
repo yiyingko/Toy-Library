@@ -33,10 +33,13 @@ router.get('/', async (req: Request, res: Response) => {
       offset,
     });
 
-    const conditions = [`(name LIKE ? OR description LIKE ? OR tags LIKE ?)`];
+    const conditions: string[] = [
+      `(name LIKE ? OR description LIKE ? OR tags LIKE ?)`,
+    ];
     const params: (string | number)[] = [search, search, search];
+    const hasAgeFilter = typeof age === 'string' && age.trim() !== '';
 
-    if (typeof age === 'string') {
+    if (hasAgeFilter) {
       const [minAge, maxAge] = age.split('-').map(Number);
 
       conditions.push(
