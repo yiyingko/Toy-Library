@@ -7,12 +7,14 @@
 }
 
 .toy-detail__img {
-    width: 30%;
+    width: 32%;
     height: auto;
+    object-fit: contain;
     border-radius: 8px;
 }
 
 .toy-detail__content {
+    width: 40%;
     font-size: 1.2rem;
 }
 
@@ -47,16 +49,21 @@
 }
 
 .borrow__button {
-    padding: 4%;
+    width: 30%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
     border-radius: 20px;
     background-color: var(--teal);
     color: var(--bg-main);
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-    font-weight: 500;
     cursor: pointer;
-    display: inline-block;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+
 }
+
 
 .borrow__button:hover {
     transform: translateY(-4px);

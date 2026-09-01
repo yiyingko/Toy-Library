@@ -23,8 +23,10 @@
 }
 
 .navbar li {
-    width: 16%;
-    padding: 1%;
+    display: grid;
+    place-items: center;
+    width: 22%;
+    height: 43px;
     margin: 2%;
     border-radius: 18px;
     text-align: center;

@@ -1,10 +1,29 @@
 import { getAuthHeaders } from './getAuthHeaders';
 
 export async function getAllToys() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/toys`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/toys?all=true`);
   if (!response.ok) {
     throw new Error('Failed to fetch toys');
   }
+  const data = await response.json();
+  return data.toys;
+}
+
+export async function getPaginatedToys(
+  search = '',
+  age = '',
+  available = false,
+  page = 1,
+  limit = 12,
+) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/toys?search=${encodeURIComponent(search)}&age=${encodeURIComponent(age)}&available=${available}&page=${page}&limit=${limit}`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch toys');
+  }
+
   return response.json();
 }
 

@@ -1,7 +1,39 @@
-.toy-list {
+.toy-list-page {
+    display: grid;
+    place-items: center;
+}
+
+
+.toy-list-page__grid {
     width: 100vw;
     display: grid;
     place-items: center;
     grid-template-columns: repeat(4, 25%);
     padding: 2% 5% 2% 5%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 3rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination li a {
+    display: block;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--text-description);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination__page--active {
+    background-color: var(--blue-misty);
+    border-radius: 6px;
+}
+
+.pagination li a:hover {
+    background: var(--teal-soft);
 }

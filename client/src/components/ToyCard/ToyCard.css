@@ -30,9 +30,22 @@
 
 .toy-card__img {
     width: 100%;
+    height: 390px;
+    object-fit: contain;
 }
 
+
+
 .toy-card__title {
-    font-weight: 500;
+    font-weight: 600;
     margin-top: 1%;
+    line-height: 1.4;
+    min-height: 2.8em;
+    /* space for 2 lines */
+
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
