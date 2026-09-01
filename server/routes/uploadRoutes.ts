@@ -44,7 +44,7 @@ router.post(
 
       await fs.unlink(req.file.path);
 
-      console.log('Cloudinary result:', result.secure_url);
+      // console.log('Cloudinary result:', result.secure_url);
 
       res.json({
         message: 'Upload successful',

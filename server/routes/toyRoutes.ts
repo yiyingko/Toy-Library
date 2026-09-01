@@ -1,3 +1,5 @@
+import type { Request, Response } from 'express';
+
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
@@ -5,7 +7,7 @@ const checkJwt = require('../middleware/checkJwt');
 
 //GET/toys
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   const all = req.query.all === 'true';
   console.log('GET /toys called');
 
@@ -32,9 +34,9 @@ router.get('/', async (req, res) => {
     });
 
     const conditions = [`(name LIKE ? OR description LIKE ? OR tags LIKE ?)`];
-    const params = [search, search, search];
+    const params: (string | number)[] = [search, search, search];
 
-    if (age) {
+    if (typeof age === 'string') {
       const [minAge, maxAge] = age.split('-').map(Number);
 
       conditions.push(
@@ -73,13 +75,13 @@ router.get('/', async (req, res) => {
       total: total.total,
     });
   } catch (error) {
-    console.error('Error in /toys:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error('Error in /toys:');
+    res.status(500).json({ message: 'Toys not found' });
   }
 });
 
 // GET /toys/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -91,13 +93,13 @@ router.get('/:id', async (req, res) => {
 
     res.json(rows[0]);
   } catch (error) {
-    console.error('Error in /toys/:id:', error.message);
-    res.status(500).json({ error: error.message });
+    console.error('Error in /toys/:id:', error);
+    res.status(500).json({ message: 'Toy Id not found' });
   }
 });
 
 // DELETE  /toys/:id
-router.delete('/:id', checkJwt, async (req, res) => {
+router.delete('/:id', checkJwt, async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
@@ -119,15 +121,15 @@ router.delete('/:id', checkJwt, async (req, res) => {
       message: 'Toy deleted successfully',
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
 
     res.status(500).json({
-      error: error.message,
+      message: 'Toy deletion failed',
     });
   }
 });
 
-router.patch('/:id', checkJwt, async (req, res) => {
+router.patch('/:id', checkJwt, async (req: Request, res: Response) => {
   console.log(req.body);
   const { id } = req.params;
 
@@ -183,12 +185,12 @@ router.patch('/:id', checkJwt, async (req, res) => {
       message: 'Toy info updated successfully',
     });
   } catch (error) {
-    console.error('Error updating toy:', error.message);
+    console.error('Error updating toy:', error);
     res.status(500).json({ error: 'Something went wrong.' });
   }
 });
 
-router.post('/', checkJwt, async (req, res) => {
+router.post('/', checkJwt, async (req: Request, res: Response) => {
   const { name, description, age_group, tags, image_path } = req.body;
 
   if (!name) {
@@ -209,7 +211,7 @@ router.post('/', checkJwt, async (req, res) => {
       toyId: result.insertId,
     });
   } catch (error) {
-    console.error('Error saving contact message:', error.message);
+    console.error('Error saving contact message:', error);
     res.status(500).json({ error: 'Something went wrong.' });
   }
 });
