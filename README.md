@@ -42,7 +42,7 @@ Administrative functionality is protected. Some data may be periodically reset d
 
 <p align="center">
 <img src="./screenshot/admin-dashboard.png" width="45%" alt="Admin Dashboard">
-  <img src="./screenshot/homepage.png" width="70%" alt="Home Page">
+  <img src="./screenshot/homepage.png" width="45%" alt="Home Page">
 </p>
 
 ---
