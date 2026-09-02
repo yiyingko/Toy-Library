@@ -1,12 +1,16 @@
 # Toy Library
 
-### A full-stack toy lending platform that allows families to browse available toys, submit borrowing requests, and contact the library. Administrators can manage toys, review borrowing requests, and monitor activity through a protected dashboard.
+### A full-stack toy lending platform that allows families to browse and filter available toys, submit borrowing requests, and contact the library. Administrators can manage toys, review borrowing requests, and monitor activity through a protected dashboard.
+
 ---
+
 ## About The Project
 
-Toy Library was created to simulate a real-world toy lending service while providing a practical environment to develop and deploy a full-stack application.
+Toy Library was created to simulate a real-world toy lending service while providing a practical environment to design, develop, and deploy a full-stack application.
 
-The project focuses on inventory management, borrowing workflows, authentication, image uploads, and deployment to a production environment.
+The project focuses on inventory management, borrowing workflows, authentication, dynamic search and filtering, image uploads, and production deployment.
+
+Version 2.1 introduces improved toy discovery through pagination and filtering, alongside a migration of the backend from JavaScript to TypeScript.
 
 ---
 
@@ -19,6 +23,7 @@ Frontend: https://toylibrary.netlify.app/
 ## Portfolio Demo
 
 This application is a portfolio project and demonstration environment.
+
 Administrative functionality is protected. Some data may be periodically reset during development and testing.
 
 ---
@@ -31,24 +36,29 @@ Administrative functionality is protected. Some data may be periodically reset d
 </p>
 
 <p align="center">
+  <img src="./screenshot/pagenation.png" width="45%" alt="Toy Management Page">
   <img src="./screenshot/toy-management.png" width="45%" alt="Toy Management Page">
-  <img src="./screenshot/admin-dashboard.png" width="45%" alt="Admin Dashboard">
 </p>
 
 <p align="center">
-   <img src="./screenshot/homepage.png" width="70%" alt="Home Page">
+<img src="./screenshot/admin-dashboard.png" width="45%" alt="Admin Dashboard">
+  <img src="./screenshot/homepage.png" width="70%" alt="Home Page">
 </p>
 
 ---
 
 ## Features
 
-### Features (V2)
+### V2.1
 
 ### Public Features
 
 - Browse available toys
-- View toy details
+- Search toys by keyword
+- Filter toys by age range
+- Filter toys by availability
+- Paginated toy browsing
+- View individual toy details
 - Submit borrowing requests
 - Contact the toy library
 
@@ -58,12 +68,23 @@ Administrative functionality is protected. Some data may be periodically reset d
 - Protected admin routes
 - Dashboard with activity summary
 - View and manage borrowing requests
-- Approve or reject requests
-- Manage toy availability status
+- Approve or reject borrowing requests
+- Mark borrowing requests as completed
+- Automatically synchronise toy availability with borrowing status
 - View contact messages
 - Add new toys
 - Edit existing toys
 - Upload toy images using Cloudinary
+
+### V2.1 Technical Improvements
+
+- Migrated the Express backend from JavaScript to TypeScript
+- Added TypeScript typing for routes, request parameters, database interactions, and error handling
+- Added dynamic SQL filtering using parameterised queries
+- Reused filtering conditions for paginated results and total-count queries
+- Added `LIMIT` and `OFFSET` pagination to the toys API
+- Added overlapping age-range filtering
+- Added availability filtering
 
 ---
 
@@ -82,6 +103,7 @@ Administrative functionality is protected. Some data may be periodically reset d
 
 - Node.js
 - Express.js
+- TypeScript
 - MySQL
 
 ### Authentication
@@ -104,13 +126,19 @@ Administrative functionality is protected. Some data may be periodically reset d
 
 ```txt
 React + TypeScript (Netlify)
+
             ↓
-      Express API
+
+Express + TypeScript API
+
          (Railway)
+
             ↓
+
       MySQL (Aiven)
 
 Auth0 ───────┘
+
 Cloudinary ──┘
 ```
 
@@ -120,6 +148,7 @@ Cloudinary ──┘
 
 ```txt
 toy-library/
+
 ├── client/
 │   ├── src/
 │   ├── public/
@@ -127,8 +156,8 @@ toy-library/
 │
 ├── server/
 │   ├── routes/
-│   ├── db.js
-│   ├── server.js
+│   ├── db.ts
+│   ├── server.ts
 │   └── ...
 │
 └── netlify.toml
@@ -168,19 +197,60 @@ Stores enquiries submitted through the contact form.
 
 ### Pending
 
-Request has been submitted and awaits review.
+A borrowing request has been submitted and awaits review.
 
 ### Approved
 
-Request has been approved and the toy becomes unavailable.
+The request has been approved and the toy becomes unavailable.
 
 ### Rejected
 
-Request has been reviewed but not approved.
+The request has been reviewed but not approved.
 
 ### Completed
 
-Toy has been returned and becomes available again.
+The toy has been returned and becomes available again.
+
+---
+
+## Search, Filtering & Pagination
+
+The toys API supports multiple optional query parameters that can be combined dynamically.
+
+Examples include:
+
+```http
+GET /toys?page=1&limit=12
+```
+
+```http
+GET /toys?search=puzzle
+```
+
+```http
+GET /toys?age=3-5
+```
+
+```http
+GET /toys?available=true
+```
+
+Filters can also be combined:
+
+```http
+GET /toys?search=wooden&age=3-5&available=true&page=1&limit=12
+```
+
+The backend builds SQL conditions dynamically while keeping user input parameterised.
+
+The same filtering conditions are reused for both:
+
+- Retrieving the current page of toys
+- Calculating the total number of matching results
+
+This keeps pagination accurate when filters are applied.
+
+Age filtering uses overlapping ranges rather than requiring an exact match. For example, a toy suitable for ages `5-7` can appear when filtering for ages `6-8`.
 
 ---
 
@@ -195,7 +265,9 @@ Only authenticated users can access:
 - Borrow request management
 - Message management
 
-Backend routes are secured using JWT validation.
+Protected backend routes validate JWT access tokens before allowing administrative operations.
+
+Database queries that include user-controlled filtering values use parameterised SQL queries rather than interpolating input directly into SQL.
 
 ---
 
@@ -245,8 +317,6 @@ git clone https://github.com/yiyingko/Toy-Library.git
 cd Toy-Library
 ```
 
----
-
 ### Install frontend dependencies
 
 ```bash
@@ -261,15 +331,11 @@ cd ../server
 npm install
 ```
 
----
-
 ### Run backend
 
 ```bash
 npm run dev
 ```
-
----
 
 ### Run frontend
 
@@ -282,10 +348,20 @@ npm run dev
 
 ## API Endpoints
 
-### Get all toys
+### Get toys
 
 ```http
 GET /toys
+```
+
+Supports optional query parameters including:
+
+```txt
+search
+age
+available
+page
+limit
 ```
 
 ### Get toy by ID
@@ -315,13 +391,12 @@ Example request body:
 
 ## Future Improvements (V3)
 
-- Advanced toy search and filtering
-- Pagination
-- Demo user account with permissions
-- Email notifications
-- AI-assisted toy descriptions
-- Borrowing history
-- Enhanced analytics dashboard
+V3 is planned as a focused extension of the existing application rather than a major rebuild.
+
+- AI-assisted toy description generation
+- Limited-permission admin/demo access
+
+The AI feature will assist administrators when creating or editing toy descriptions, while limited admin permissions will make it possible to demonstrate protected functionality without exposing full administrative access.
 
 ---
 
@@ -329,13 +404,20 @@ Example request body:
 
 This project provided hands-on experience with:
 
-- Building a full-stack application using React and Express
+- Building a full-stack application using React, TypeScript, Node.js, and Express
+- Migrating an existing Express backend from JavaScript to TypeScript
+- Typing Express routes, request parameters, errors, and database interactions
 - Designing and querying relational databases with MySQL
+- Building dynamic SQL queries using optional filters
+- Keeping SQL queries parameterised while dynamically constructing conditions
+- Reusing query conditions for result retrieval and `COUNT(*)` pagination queries
+- Implementing pagination with `LIMIT` and `OFFSET`
+- Designing overlapping numeric range filtering
 - Authentication and route protection using Auth0
 - Image uploads and cloud storage with Cloudinary
 - Deploying production applications using Netlify and Railway
-- Debugging real-world deployment and environment configuration issues
-- Managing project development using Git branches and pull request workflows
+- Debugging production deployment and environment configuration issues
+- Managing development using Git branches and pull request workflows
 
 ---
 
